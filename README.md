@@ -20,20 +20,22 @@ Kit drawings yet.
 
 ## Status
 
-The stack breakout board in `PC104/`, opened in KiCad 10.0.6:
+The stack breakout board in `PC104/`, in KiCad 10.0.6 format: ERC is clean,
+schematic parity is clean, and with the zones filled DRC finds no unconnected
+items. It still has 12 DRC findings, which need placement in the editor:
 
-- Its connections match the schematic: the board and the schematic group the
-  same pads into the same 99 nets. The board's nets still carry Eagle's names,
-  so the schematic parity check lists 199 name mismatches.
-- With the zones filled, DRC finds three nets each routed in two halves:
-  stack pins 25 and 26 (5V0), 27 and 28 (3V3) and 45 and 46 (V_BAT) are not
-  joined on the board.
-- One track crosses a keep-out area, and the imported silkscreen text is
-  thinner than the board's minimum.
+- J2 pin 52's track on F.Cu passes through the keep-out ring of the top-left
+  mounting hole, probably room for a screw head (2 errors). The inner layers are
+  taken at that height, so it needs a new route.
+- Silkscreen overlaps copper in 10 places: the rings around the mounting
+  holes, two pin labels next to holes, and the back outlines of J2 and J4 over
+  the pads of the headers beside them.
 
-Planned: fix the board, give the symbols the right pin types and link them to
-the footprint, add a generic H1/H2 header symbol beside the SUCHAI one, check
-the footprint against the CubeSat Kit dimensions, and add a project template.
+The ground pours are saved unfilled; fill them (B) before plotting.
+
+Planned: give the symbols the right pin types and link them to the footprint,
+add a generic H1/H2 header symbol beside the SUCHAI one, check the footprint
+against the CubeSat Kit dimensions, and add a project template.
 
 ## Credits
 
