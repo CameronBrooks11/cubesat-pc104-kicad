@@ -12,7 +12,7 @@
 		(in_pos_files yes)
 		(duplicate_pin_numbers_are_jumpers no)
 		(property "Reference" "J"
-			(at 0 35.56 0)
+			(at 0 36.83 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -77,8 +77,8 @@
 		)
 		(symbol "CSK_Bus_1_1"
 			(rectangle
-				(start -5.08 34.29)
-				(end 5.08 -34.29)
+				(start -7.62 34.29)
+				(end 7.62 -34.29)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -87,16 +87,8 @@
 					(type background)
 				)
 			)
-			(text "H1"
-				(at 0 35.56 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
 			(pin passive line
-				(at -8.89 31.75 0)
+				(at -11.43 31.75 0)
 				(length 3.81)
 				(name "H1.1"
 					(effects
@@ -114,7 +106,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 31.75 180)
+				(at 11.43 31.75 180)
 				(length 3.81)
 				(name "H1.2"
 					(effects
@@ -132,7 +124,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 29.21 0)
+				(at -11.43 29.21 0)
 				(length 3.81)
 				(name "H1.3"
 					(effects
@@ -150,7 +142,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 29.21 180)
+				(at 11.43 29.21 180)
 				(length 3.81)
 				(name "H1.4"
 					(effects
@@ -168,7 +160,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 26.67 0)
+				(at -11.43 26.67 0)
 				(length 3.81)
 				(name "H1.5"
 					(effects
@@ -186,7 +178,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 26.67 180)
+				(at 11.43 26.67 180)
 				(length 3.81)
 				(name "H1.6"
 					(effects
@@ -204,7 +196,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 24.13 0)
+				(at -11.43 24.13 0)
 				(length 3.81)
 				(name "H1.7"
 					(effects
@@ -222,7 +214,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 24.13 180)
+				(at 11.43 24.13 180)
 				(length 3.81)
 				(name "H1.8"
 					(effects
@@ -240,7 +232,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 21.59 0)
+				(at -11.43 21.59 0)
 				(length 3.81)
 				(name "H1.9"
 					(effects
@@ -258,7 +250,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 21.59 180)
+				(at 11.43 21.59 180)
 				(length 3.81)
 				(name "H1.10"
 					(effects
@@ -276,7 +268,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 19.05 0)
+				(at -11.43 19.05 0)
 				(length 3.81)
 				(name "H1.11"
 					(effects
@@ -294,7 +286,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 19.05 180)
+				(at 11.43 19.05 180)
 				(length 3.81)
 				(name "H1.12"
 					(effects
@@ -312,7 +304,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 16.51 0)
+				(at -11.43 16.51 0)
 				(length 3.81)
 				(name "H1.13"
 					(effects
@@ -330,7 +322,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 16.51 180)
+				(at 11.43 16.51 180)
 				(length 3.81)
 				(name "H1.14"
 					(effects
@@ -348,7 +340,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 13.97 0)
+				(at -11.43 13.97 0)
 				(length 3.81)
 				(name "H1.15"
 					(effects
@@ -366,7 +358,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 13.97 180)
+				(at 11.43 13.97 180)
 				(length 3.81)
 				(name "H1.16"
 					(effects
@@ -384,7 +376,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 11.43 0)
+				(at -11.43 11.43 0)
 				(length 3.81)
 				(name "H1.17"
 					(effects
@@ -402,7 +394,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 11.43 180)
+				(at 11.43 11.43 180)
 				(length 3.81)
 				(name "H1.18"
 					(effects
@@ -420,7 +412,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 8.89 0)
+				(at -11.43 8.89 0)
 				(length 3.81)
 				(name "H1.19"
 					(effects
@@ -438,7 +430,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 8.89 180)
+				(at 11.43 8.89 180)
 				(length 3.81)
 				(name "H1.20"
 					(effects
@@ -456,7 +448,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 6.35 0)
+				(at -11.43 6.35 0)
 				(length 3.81)
 				(name "H1.21"
 					(effects
@@ -474,7 +466,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 6.35 180)
+				(at 11.43 6.35 180)
 				(length 3.81)
 				(name "H1.22"
 					(effects
@@ -492,7 +484,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 3.81 0)
+				(at -11.43 3.81 0)
 				(length 3.81)
 				(name "H1.23"
 					(effects
@@ -510,7 +502,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 3.81 180)
+				(at 11.43 3.81 180)
 				(length 3.81)
 				(name "H1.24"
 					(effects
@@ -528,7 +520,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 1.27 0)
+				(at -11.43 1.27 0)
 				(length 3.81)
 				(name "H1.25"
 					(effects
@@ -546,7 +538,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 1.27 180)
+				(at 11.43 1.27 180)
 				(length 3.81)
 				(name "H1.26"
 					(effects
@@ -564,7 +556,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -1.27 0)
+				(at -11.43 -1.27 0)
 				(length 3.81)
 				(name "H1.27"
 					(effects
@@ -582,7 +574,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -1.27 180)
+				(at 11.43 -1.27 180)
 				(length 3.81)
 				(name "H1.28"
 					(effects
@@ -600,7 +592,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -3.81 0)
+				(at -11.43 -3.81 0)
 				(length 3.81)
 				(name "H1.29"
 					(effects
@@ -618,7 +610,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -3.81 180)
+				(at 11.43 -3.81 180)
 				(length 3.81)
 				(name "H1.30"
 					(effects
@@ -636,7 +628,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -6.35 0)
+				(at -11.43 -6.35 0)
 				(length 3.81)
 				(name "H1.31"
 					(effects
@@ -654,7 +646,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -6.35 180)
+				(at 11.43 -6.35 180)
 				(length 3.81)
 				(name "H1.32"
 					(effects
@@ -672,7 +664,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -8.89 0)
+				(at -11.43 -8.89 0)
 				(length 3.81)
 				(name "H1.33"
 					(effects
@@ -690,7 +682,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -8.89 180)
+				(at 11.43 -8.89 180)
 				(length 3.81)
 				(name "H1.34"
 					(effects
@@ -708,7 +700,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -11.43 0)
+				(at -11.43 -11.43 0)
 				(length 3.81)
 				(name "H1.35"
 					(effects
@@ -726,7 +718,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -11.43 180)
+				(at 11.43 -11.43 180)
 				(length 3.81)
 				(name "H1.36"
 					(effects
@@ -744,7 +736,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -13.97 0)
+				(at -11.43 -13.97 0)
 				(length 3.81)
 				(name "H1.37"
 					(effects
@@ -762,7 +754,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -13.97 180)
+				(at 11.43 -13.97 180)
 				(length 3.81)
 				(name "H1.38"
 					(effects
@@ -780,7 +772,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -16.51 0)
+				(at -11.43 -16.51 0)
 				(length 3.81)
 				(name "H1.39"
 					(effects
@@ -798,7 +790,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -16.51 180)
+				(at 11.43 -16.51 180)
 				(length 3.81)
 				(name "H1.40"
 					(effects
@@ -816,7 +808,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -19.05 0)
+				(at -11.43 -19.05 0)
 				(length 3.81)
 				(name "H1.41"
 					(effects
@@ -834,7 +826,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -19.05 180)
+				(at 11.43 -19.05 180)
 				(length 3.81)
 				(name "H1.42"
 					(effects
@@ -852,7 +844,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -21.59 0)
+				(at -11.43 -21.59 0)
 				(length 3.81)
 				(name "H1.43"
 					(effects
@@ -870,7 +862,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -21.59 180)
+				(at 11.43 -21.59 180)
 				(length 3.81)
 				(name "H1.44"
 					(effects
@@ -888,7 +880,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -24.13 0)
+				(at -11.43 -24.13 0)
 				(length 3.81)
 				(name "H1.45"
 					(effects
@@ -906,7 +898,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -24.13 180)
+				(at 11.43 -24.13 180)
 				(length 3.81)
 				(name "H1.46"
 					(effects
@@ -924,7 +916,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -26.67 0)
+				(at -11.43 -26.67 0)
 				(length 3.81)
 				(name "H1.47"
 					(effects
@@ -942,7 +934,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -26.67 180)
+				(at 11.43 -26.67 180)
 				(length 3.81)
 				(name "H1.48"
 					(effects
@@ -960,7 +952,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -29.21 0)
+				(at -11.43 -29.21 0)
 				(length 3.81)
 				(name "H1.49"
 					(effects
@@ -978,7 +970,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -29.21 180)
+				(at 11.43 -29.21 180)
 				(length 3.81)
 				(name "H1.50"
 					(effects
@@ -996,7 +988,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -31.75 0)
+				(at -11.43 -31.75 0)
 				(length 3.81)
 				(name "H1.51"
 					(effects
@@ -1014,7 +1006,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -31.75 180)
+				(at 11.43 -31.75 180)
 				(length 3.81)
 				(name "H1.52"
 					(effects
@@ -1034,8 +1026,8 @@
 		)
 		(symbol "CSK_Bus_2_1"
 			(rectangle
-				(start -5.08 34.29)
-				(end 5.08 -34.29)
+				(start -7.62 34.29)
+				(end 7.62 -34.29)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -1044,16 +1036,8 @@
 					(type background)
 				)
 			)
-			(text "H2"
-				(at 0 35.56 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
 			(pin passive line
-				(at -8.89 31.75 0)
+				(at -11.43 31.75 0)
 				(length 3.81)
 				(name "H2.1"
 					(effects
@@ -1071,7 +1055,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 31.75 180)
+				(at 11.43 31.75 180)
 				(length 3.81)
 				(name "H2.2"
 					(effects
@@ -1089,7 +1073,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 29.21 0)
+				(at -11.43 29.21 0)
 				(length 3.81)
 				(name "H2.3"
 					(effects
@@ -1107,7 +1091,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 29.21 180)
+				(at 11.43 29.21 180)
 				(length 3.81)
 				(name "H2.4"
 					(effects
@@ -1125,7 +1109,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 26.67 0)
+				(at -11.43 26.67 0)
 				(length 3.81)
 				(name "H2.5"
 					(effects
@@ -1143,7 +1127,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 26.67 180)
+				(at 11.43 26.67 180)
 				(length 3.81)
 				(name "H2.6"
 					(effects
@@ -1161,7 +1145,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 24.13 0)
+				(at -11.43 24.13 0)
 				(length 3.81)
 				(name "H2.7"
 					(effects
@@ -1179,7 +1163,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 24.13 180)
+				(at 11.43 24.13 180)
 				(length 3.81)
 				(name "H2.8"
 					(effects
@@ -1197,7 +1181,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 21.59 0)
+				(at -11.43 21.59 0)
 				(length 3.81)
 				(name "H2.9"
 					(effects
@@ -1215,7 +1199,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 21.59 180)
+				(at 11.43 21.59 180)
 				(length 3.81)
 				(name "H2.10"
 					(effects
@@ -1233,7 +1217,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 19.05 0)
+				(at -11.43 19.05 0)
 				(length 3.81)
 				(name "H2.11"
 					(effects
@@ -1251,7 +1235,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 19.05 180)
+				(at 11.43 19.05 180)
 				(length 3.81)
 				(name "H2.12"
 					(effects
@@ -1269,7 +1253,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 16.51 0)
+				(at -11.43 16.51 0)
 				(length 3.81)
 				(name "H2.13"
 					(effects
@@ -1287,7 +1271,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 16.51 180)
+				(at 11.43 16.51 180)
 				(length 3.81)
 				(name "H2.14"
 					(effects
@@ -1305,7 +1289,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 13.97 0)
+				(at -11.43 13.97 0)
 				(length 3.81)
 				(name "H2.15"
 					(effects
@@ -1323,7 +1307,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 13.97 180)
+				(at 11.43 13.97 180)
 				(length 3.81)
 				(name "H2.16"
 					(effects
@@ -1341,7 +1325,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 11.43 0)
+				(at -11.43 11.43 0)
 				(length 3.81)
 				(name "H2.17"
 					(effects
@@ -1359,7 +1343,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 11.43 180)
+				(at 11.43 11.43 180)
 				(length 3.81)
 				(name "H2.18"
 					(effects
@@ -1377,7 +1361,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 8.89 0)
+				(at -11.43 8.89 0)
 				(length 3.81)
 				(name "H2.19"
 					(effects
@@ -1395,7 +1379,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 8.89 180)
+				(at 11.43 8.89 180)
 				(length 3.81)
 				(name "H2.20"
 					(effects
@@ -1413,7 +1397,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 6.35 0)
+				(at -11.43 6.35 0)
 				(length 3.81)
 				(name "H2.21"
 					(effects
@@ -1431,7 +1415,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 6.35 180)
+				(at 11.43 6.35 180)
 				(length 3.81)
 				(name "H2.22"
 					(effects
@@ -1449,7 +1433,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 3.81 0)
+				(at -11.43 3.81 0)
 				(length 3.81)
 				(name "H2.23"
 					(effects
@@ -1467,7 +1451,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 3.81 180)
+				(at 11.43 3.81 180)
 				(length 3.81)
 				(name "H2.24"
 					(effects
@@ -1485,7 +1469,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 1.27 0)
+				(at -11.43 1.27 0)
 				(length 3.81)
 				(name "H2.25"
 					(effects
@@ -1503,7 +1487,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 1.27 180)
+				(at 11.43 1.27 180)
 				(length 3.81)
 				(name "H2.26"
 					(effects
@@ -1521,7 +1505,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -1.27 0)
+				(at -11.43 -1.27 0)
 				(length 3.81)
 				(name "H2.27"
 					(effects
@@ -1539,7 +1523,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -1.27 180)
+				(at 11.43 -1.27 180)
 				(length 3.81)
 				(name "H2.28"
 					(effects
@@ -1557,7 +1541,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -3.81 0)
+				(at -11.43 -3.81 0)
 				(length 3.81)
 				(name "H2.29"
 					(effects
@@ -1575,7 +1559,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -3.81 180)
+				(at 11.43 -3.81 180)
 				(length 3.81)
 				(name "H2.30"
 					(effects
@@ -1593,7 +1577,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -6.35 0)
+				(at -11.43 -6.35 0)
 				(length 3.81)
 				(name "H2.31"
 					(effects
@@ -1611,7 +1595,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -6.35 180)
+				(at 11.43 -6.35 180)
 				(length 3.81)
 				(name "H2.32"
 					(effects
@@ -1629,7 +1613,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -8.89 0)
+				(at -11.43 -8.89 0)
 				(length 3.81)
 				(name "H2.33"
 					(effects
@@ -1647,7 +1631,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -8.89 180)
+				(at 11.43 -8.89 180)
 				(length 3.81)
 				(name "H2.34"
 					(effects
@@ -1665,7 +1649,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -11.43 0)
+				(at -11.43 -11.43 0)
 				(length 3.81)
 				(name "H2.35"
 					(effects
@@ -1683,7 +1667,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -11.43 180)
+				(at 11.43 -11.43 180)
 				(length 3.81)
 				(name "H2.36"
 					(effects
@@ -1701,7 +1685,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -13.97 0)
+				(at -11.43 -13.97 0)
 				(length 3.81)
 				(name "H2.37"
 					(effects
@@ -1719,7 +1703,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -13.97 180)
+				(at 11.43 -13.97 180)
 				(length 3.81)
 				(name "H2.38"
 					(effects
@@ -1737,7 +1721,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -16.51 0)
+				(at -11.43 -16.51 0)
 				(length 3.81)
 				(name "H2.39"
 					(effects
@@ -1755,7 +1739,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -16.51 180)
+				(at 11.43 -16.51 180)
 				(length 3.81)
 				(name "H2.40"
 					(effects
@@ -1773,7 +1757,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -19.05 0)
+				(at -11.43 -19.05 0)
 				(length 3.81)
 				(name "H2.41"
 					(effects
@@ -1791,7 +1775,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -19.05 180)
+				(at 11.43 -19.05 180)
 				(length 3.81)
 				(name "H2.42"
 					(effects
@@ -1809,7 +1793,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -21.59 0)
+				(at -11.43 -21.59 0)
 				(length 3.81)
 				(name "H2.43"
 					(effects
@@ -1827,7 +1811,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -21.59 180)
+				(at 11.43 -21.59 180)
 				(length 3.81)
 				(name "H2.44"
 					(effects
@@ -1845,7 +1829,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -24.13 0)
+				(at -11.43 -24.13 0)
 				(length 3.81)
 				(name "H2.45"
 					(effects
@@ -1863,7 +1847,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -24.13 180)
+				(at 11.43 -24.13 180)
 				(length 3.81)
 				(name "H2.46"
 					(effects
@@ -1881,7 +1865,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -26.67 0)
+				(at -11.43 -26.67 0)
 				(length 3.81)
 				(name "H2.47"
 					(effects
@@ -1899,7 +1883,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -26.67 180)
+				(at 11.43 -26.67 180)
 				(length 3.81)
 				(name "H2.48"
 					(effects
@@ -1917,7 +1901,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -29.21 0)
+				(at -11.43 -29.21 0)
 				(length 3.81)
 				(name "H2.49"
 					(effects
@@ -1935,7 +1919,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -29.21 180)
+				(at 11.43 -29.21 180)
 				(length 3.81)
 				(name "H2.50"
 					(effects
@@ -1953,7 +1937,7 @@
 				)
 			)
 			(pin passive line
-				(at -8.89 -31.75 0)
+				(at -11.43 -31.75 0)
 				(length 3.81)
 				(name "H2.51"
 					(effects
@@ -1971,7 +1955,7 @@
 				)
 			)
 			(pin passive line
-				(at 8.89 -31.75 180)
+				(at 11.43 -31.75 180)
 				(length 3.81)
 				(name "H2.52"
 					(effects
