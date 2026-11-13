@@ -62,6 +62,26 @@ fab board=breakout_pcb copper="F.Cu,In1.Cu,In2.Cu,B.Cu":
     @rpt=$(mktemp) && kicad-cli pcb drc --severity-all --schematic-parity --refill-zones --exit-code-violations -o "$rpt" {{board}} >/dev/null; rc=$?; [ $rc -eq 0 ] || { cat "$rpt"; rm -f "$rpt"; echo "DRC must be clean before plotting"; exit $rc; }; rm -f "$rpt"
     @name=$(basename {{board}} .kicad_pcb) && rm -rf "fab/$name" && mkdir -p "fab/$name" && kicad-cli pcb export gerbers --check-zones --subtract-soldermask --layers {{copper}},F.Mask,B.Mask,F.Silkscreen,B.Silkscreen,F.Paste,B.Paste,Edge.Cuts -o "fab/$name" {{board}} >/dev/null && kicad-cli pcb export drill --excellon-separate-th --generate-map --map-format gerberx2 -o "fab/$name" {{board}} >/dev/null && (cd fab && rm -f "$name.zip" && zip -qr "$name.zip" "$name") && ls "fab/$name" && echo "fab/$name.zip"
 
+# Build the release assets into dist/: library, templates, breakout project and its fab files
+dist version="dev":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    rm -rf dist && mkdir dist
+    stage=$(mktemp -d); trap 'rm -rf "$stage"' EXIT
+    pack() { find "$stage/$1" -name '*.kicad_prl' -delete; (cd "$stage" && zip -qr "$OLDPWD/dist/$1.zip" "$1") && rm -rf "${stage:?}/$1"; echo "dist/$1.zip"; }
+    d="$stage/CubeSat_PC104-{{version}}"; mkdir -p "$d"
+    cp -r KiCad/CubeSat_PC104.kicad_sym KiCad/CubeSat_PC104.pretty LICENSE "$d/"
+    pack "CubeSat_PC104-{{version}}"
+    d="$stage/cubesat-pc104-templates-{{version}}"; mkdir -p "$d"
+    cp -r templates/. LICENSE "$d/"
+    pack "cubesat-pc104-templates-{{version}}"
+    d="$stage/CSK_Bus_Breakout-{{version}}"; mkdir -p "$d"
+    cp -r breakout/. LICENSE "$d/"
+    pack "CSK_Bus_Breakout-{{version}}"
+    just fab >/dev/null
+    cp fab/CSK_Bus_Breakout.zip "dist/CSK_Bus_Breakout-fab-{{version}}.zip"
+    echo "dist/CSK_Bus_Breakout-fab-{{version}}.zip"
+
 # Regenerate the breakout board from the Slot 0 template and the library, then fill its zones
 breakout:
     python3 tools/genbreakout.py

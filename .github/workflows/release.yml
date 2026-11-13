@@ -1,0 +1,73 @@
+name: Release
+
+# A v* tag builds the assets with just dist and publishes them as a GitHub
+# release, with that version's CHANGELOG section as the notes. A pull request
+# that touches the release path runs the build only, so it is tested before
+# any tag exists.
+on:
+  push:
+    tags: ["v*"]
+  pull_request:
+    paths:
+      - .github/workflows/release.yml
+      - justfile
+      - CHANGELOG.md
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: kicad/kicad:10.0.6
+      options: --user root
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+
+      - name: Install just and zip
+        run: apt-get update && apt-get install -y --no-install-recommends just zip
+
+      - name: just check
+        run: just check
+
+      - name: just dist
+        run: just dist "${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}"
+
+      - name: Upload assets
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+
+  release:
+    if: github.ref_type == 'tag'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+
+      - name: Download assets
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      - name: Release notes from CHANGELOG.md
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          v="${TAG#v}"
+          awk -v v="$v" '/^## \[/{p = ($0 ~ "^## \\[" v "\\]")} /^\[[^]]+\]: /{p = 0} p' CHANGELOG.md | tail -n +2 > notes.md
+          test -s notes.md || { echo "CHANGELOG.md has no section for $v"; exit 1; }
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" dist/* --title "$TAG" --notes-file notes.md --verify-tag
