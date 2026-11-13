@@ -4,10 +4,36 @@ breakout := "PC104/StackBreakoutConnection_4layers_V1.0.kicad_pcb"
 default:
     @just --list
 
-# Check each template's library copy matches KiCad/, and each template board passes DRC with schematic parity
+# Library copies, symbol generator, DRC with schematic parity and ERC on every board
 check:
-    @for t in {{templates}}; do cmp KiCad/CubeSat_PC104.kicad_sym "$t/CubeSat_PC104.kicad_sym" && diff -r KiCad/CubeSat_PC104.pretty "$t/CubeSat_PC104.pretty" && echo "$t: library matches KiCad/" || exit 1; done
-    @for t in {{templates}}; do out=$(mktemp); kicad-cli pcb drc --severity-all --schematic-parity --exit-code-violations -o "$out" "$t/$(basename $t).kicad_pcb" >/dev/null; rc=$?; [ $rc -eq 0 ] && echo "$t: DRC clean" || { cat "$out"; rm -f "$out"; exit $rc; }; rm -f "$out"; done
+    #!/usr/bin/env bash
+    set -uo pipefail
+    tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+    fail() { echo "FAIL: $1"; [ -n "${2:-}" ] && cat "$2"; exit 1; }
+    for t in {{templates}}; do
+      cmp -s KiCad/CubeSat_PC104.kicad_sym "$t/CubeSat_PC104.kicad_sym" && diff -r KiCad/CubeSat_PC104.pretty "$t/CubeSat_PC104.pretty" >/dev/null \
+        || fail "$t: library copy differs from KiCad/ (run just sync-template)"
+      echo "$t: library matches KiCad/"
+    done
+    python3 tools/gensym.py "$tmp/CubeSat_PC104.kicad_sym" >/dev/null && kicad-cli sym upgrade --force "$tmp/CubeSat_PC104.kicad_sym" >/dev/null || fail "tools/gensym.py did not run"
+    cmp -s "$tmp/CubeSat_PC104.kicad_sym" KiCad/CubeSat_PC104.kicad_sym || fail "KiCad/CubeSat_PC104.kicad_sym is not what tools/gensym.py generates"
+    echo "KiCad/CubeSat_PC104.kicad_sym matches tools/gensym.py"
+    for b in {{templates}} {{breakout}}; do
+      [ -d "$b" ] && b="$b/$(basename "$b").kicad_pcb"
+      kicad-cli pcb drc --severity-all --schematic-parity --refill-zones --exit-code-violations -o "$tmp/drc.rpt" "$b" >/dev/null || fail "$b: DRC" "$tmp/drc.rpt"
+      echo "$b: DRC clean, schematic parity clean"
+    done
+    # A template's only ERC findings are its bus pins, unconnected until a project wires them
+    for t in {{templates}}; do
+      sch="$t/$(basename "$t").kicad_sch"
+      kicad-cli sch erc --severity-all --format json -o "$tmp/erc.json" "$sch" >/dev/null
+      other=$(python3 -c 'import json,sys; v=[x["type"] for s in json.load(open(sys.argv[1]))["sheets"] for x in s["violations"]]; print(len(v)-v.count("pin_not_connected"))' "$tmp/erc.json")
+      [ "$other" = 0 ] || fail "$sch: $other ERC finding(s) besides unconnected bus pins" "$tmp/erc.json"
+      echo "$sch: ERC finds only the unconnected bus pins"
+    done
+    sch="{{breakout}}"; sch="${sch%.kicad_pcb}.kicad_sch"
+    kicad-cli sch erc --severity-all --exit-code-violations -o "$tmp/erc.rpt" "$sch" >/dev/null || fail "$sch: ERC" "$tmp/erc.rpt"
+    echo "$sch: ERC clean"
 
 # Regenerate the footprints from the specification's DXFs and compare them with KiCad/
 footprints spec="reference/CSK_PCB_Spec_B2_20181108":

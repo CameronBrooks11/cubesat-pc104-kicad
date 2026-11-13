@@ -120,9 +120,13 @@ copper, FR4). In KiCad 10.0.6, ERC is clean and DRC reports 0 violations,
 
 With [just](https://just.systems/), Python 3 and KiCad 10's `kicad-cli`:
 
-- `just check` confirms each template's library copy matches `KiCad/` and runs
-  DRC with schematic parity on each template board. CI runs it in the official
-  `kicad/kicad:10.0.6` image on every pull request and push to `main`.
+- `just check` is the gate. CI runs it in the official `kicad/kicad:10.0.6`
+  image on every pull request and push to `main`. It confirms:
+  - each template's library copy matches `KiCad/`;
+  - `KiCad/CubeSat_PC104.kicad_sym` is exactly what `tools/gensym.py` generates;
+  - DRC with schematic parity is clean on both templates and the stack breakout;
+  - ERC on each template finds nothing but the unconnected bus pins, and on
+    the stack breakout nothing at all.
 - `just footprints` regenerates both footprints from the specification's DXFs
   with `tools/genfp.py` and compares them with `KiCad/`, ignoring UUIDs. The
   DXFs ship with Pumpkin's specification and are not in this repository; put
