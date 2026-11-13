@@ -3,8 +3,29 @@
 KiCad parts and boards for CubeSat Kit modules on the PC/104 form factor: two
 2×26 stack headers (H1 and H2) and four mounting holes.
 
-Work in progress: the library is checked against the CubeSat Kit specification;
-the project template and the stack breakout board's outline are next.
+Work in progress: the library and the project template are checked against the
+CubeSat Kit specification; the stack breakout board's outline is next.
+
+## Project template
+
+[`templates/CubeSat_PC104_Slot0`](templates/CubeSat_PC104_Slot0/) is a KiCad 10
+project template for a CubeSat Kit user module: the Slot 0 board outline, the
+H1/H2 bus as connector J1, the mounting holes and the keepouts, with copper
+kept 1.27 mm from the edge. It passes DRC with schematic parity; ERC lists the
+104 bus pins as unconnected until you wire them or flag them.
+
+<img src="templates/CubeSat_PC104_Slot0/meta/brd.png" alt="Template board, top view" width="400" />
+
+1. Clone this repository, or copy the template directory out of it.
+2. In KiCad choose **File → New Project from Template**, open the user
+   templates tab and point it at `templates/`.
+3. Pick the template and name the project. KiCad copies the files and renames
+   them after the project.
+4. In the schematic, wire the bus pins the module uses and put a no-connect
+   flag on the others.
+
+The template carries its own copy of the `CubeSat_PC104` library, so a new
+project needs nothing else installed.
 
 ## Library
 
@@ -63,6 +84,13 @@ that need placement in the editor:
   the pads of the headers beside them.
 
 The ground pours are saved unfilled; fill them (B) before plotting.
+
+## Development
+
+With [just](https://just.systems/) and KiCad 10's `kicad-cli`, `just check`
+confirms the template's library copy matches `KiCad/` and runs DRC with
+schematic parity on the template board. After changing the library, run
+`just sync-template`.
 
 ## Credits
 
