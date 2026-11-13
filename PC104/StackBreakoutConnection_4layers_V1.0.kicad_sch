@@ -1944,7 +1944,7 @@
 			)
 		)
 		(property "Value" "SSQ-126-23-G-D"
-			(at 193.167 159.7152 0)
+			(at 186.5376 158.1658 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2174,7 +2174,7 @@
 			)
 		)
 		(property "Value" "SSQ-126-23-G-D"
-			(at 99.187 157.1752 0)
+			(at 92.5576 155.6258 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2404,7 +2404,7 @@
 			)
 		)
 		(property "Value" "SSQ-126-23-G-D"
-			(at 193.167 159.7152 0)
+			(at 186.5376 158.1658 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2634,7 +2634,7 @@
 			)
 		)
 		(property "Value" "SSQ-126-23-G-D"
-			(at 192.0494 104.1654 0)
+			(at 185.42 102.616 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2864,7 +2864,7 @@
 			)
 		)
 		(property "Value" "SSQ-126-23-G-D"
-			(at 98.0694 101.6254 0)
+			(at 91.44 100.076 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3094,7 +3094,7 @@
 			)
 		)
 		(property "Value" "SSQ-126-23-G-D"
-			(at 192.0494 104.1654 0)
+			(at 185.42 102.616 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3324,7 +3324,7 @@
 			)
 		)
 		(property "Value" "SSQ-126-23-G-D"
-			(at 99.187 157.1752 0)
+			(at 92.5576 155.6258 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3554,7 +3554,7 @@
 			)
 		)
 		(property "Value" "SSQ-126-23-G-D"
-			(at 98.0694 101.6254 0)
+			(at 91.44 100.076 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3766,4 +3766,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
