@@ -1,28 +1,59 @@
 # cubesat-pc104-kicad
 
-KiCad parts and boards for CubeSat modules on the PC/104 form factor: two 2×26
-stack headers (H1 and H2) and four mounting holes.
+KiCad parts and boards for CubeSat Kit modules on the PC/104 form factor: two
+2×26 stack headers (H1 and H2) and four mounting holes.
 
-Work in progress. Nothing here has been checked against the PC/104 or CubeSat
-Kit drawings yet.
+Work in progress: the library is checked against the CubeSat Kit specification;
+the project template and the stack breakout board's outline are next.
 
-## Contents
+## Library
 
-| Path | What it is |
+`KiCad/CubeSat_PC104.kicad_sym` and `KiCad/CubeSat_PC104.pretty/`. Add them to
+a project as the symbol and footprint libraries `CubeSat_PC104`.
+
+| Part | What it is |
 | --- | --- |
-| `KiCad/Payload/` | A symbol with the SUCHAI 2 and 3 bus pinout and the `PC104-Standard` footprint: both headers, the mounting holes and a board outline with room for cables. |
-| `PC104/` | The 4-layer stack breakout board in KiCad, imported from the Eagle design below. It carries every bus pin from the stack headers to a second pair of headers 16.9 mm over. |
-| `Eagle/` | The original Eagle libraries and stack breakout boards, with and without extra connectors. |
-| `img/` | The schematic and 3D view of the payload template. |
+| `CSK_PC104_Slot0` (footprint) | A CubeSat Kit user module in the base "Slot 0" pattern: board outline, H1 and H2 headers, mounting holes, and keepout areas. Origin at H1 pin 1. |
+| `CSK_Bus` (symbol) | The bus headers for any payload: unit A is H1 (pins 1–52), unit B is H2 (pins 53–104), all passive. |
+| `SUCHAI_Payload` (symbol) | The SUCHAI 2 and 3 payload pinout on the same headers, with supply pins as power inputs. |
 
-![Payload schematic](img/KiCAD_schematic.png)
-![Payload footprint in 3D](img/KiCAD_3D_view.png)
+<img src="img/CSK_PC104_Slot0.png" alt="CSK_PC104_Slot0 footprint" width="400" />
+<img src="img/CSK_Bus_H1.png" alt="CSK_Bus unit A, H1" height="400" />
+<img src="img/SUCHAI_Payload.png" alt="SUCHAI_Payload symbol" width="400" />
 
-## Status
+### Against the specification
 
-The stack breakout board in `PC104/`, in KiCad 10.0.6 format: ERC is clean,
-schematic parity is clean, and with the zones filled DRC finds no unconnected
-items. It still has 12 DRC findings, which need placement in the editor:
+The footprint follows Pumpkin's *CubeSat Kit PCB Specification*, drawing
+810-00253, revision B2 (2018-11-08), Slot 0. It was generated from the drawing's
+Slot 0 DXF; its holes and all 104 pins land on the DXF's to within 0.0001 mm.
+Where it departs from the drawing:
+
+- **Bottom-left edge.** The DXF leaves the outline open at the bottom-left hole,
+  where the drawing calls for the feature that lets the 2nd separation switch
+  work. It is closed along that hole's 6.35 mm pad circle.
+- **Two holes without pads.** The drawing gives each hole a 6.35 mm pad and also
+  recommends keeping copper 1.27 mm from the edge. At the bottom-left and
+  top-right holes the edge is 3.175 mm and 3.048 mm from the hole centre, so
+  both can't hold. Those two are bare 3.18 mm holes; the other two have plated
+  6.35 mm pads.
+- **Keepouts.** The three boxes in the DXF are rule areas that allow no
+  footprints: the "no parts placed here" patch on the right edge (top side) and
+  the clearances for separation switches 1 and 2 (both sides). The bottom-side
+  strips where the board rests on the structure's flange are hatched in the
+  drawing but not dimensioned, so they are not included.
+- **Edge setback.** The drawing recommends 1.27 mm from the edge for all copper.
+  That is a board setting (copper to edge clearance), not part of the footprint.
+
+The specification documents are not in this repository.
+
+## Stack breakout board
+
+`PC104/` is the 4-layer stack breakout board, imported from the Eagle design in
+`Eagle/`. It carries every bus pin from the stack headers to a second pair of
+headers 16.9 mm over. In KiCad 10.0.6 format, ERC is clean, schematic parity is
+clean, and with the zones filled DRC finds no unconnected items. It still has
+SPEL's outline, which extends past the CubeSat Kit outline, and 12 DRC findings
+that need placement in the editor:
 
 - J2 pin 52's track on F.Cu passes through the keep-out ring of the top-left
   mounting hole, probably room for a screw head (2 errors). The inner layers are
@@ -33,18 +64,17 @@ items. It still has 12 DRC findings, which need placement in the editor:
 
 The ground pours are saved unfilled; fill them (B) before plotting.
 
-Planned: give the symbols the right pin types and link them to the footprint,
-add a generic H1/H2 header symbol beside the SUCHAI one, check the footprint
-against the CubeSat Kit dimensions, and add a project template.
-
 ## Credits
 
-The library, the Eagle designs and the payload template are by SPEL at the
-Universidad de Chile, from
+The SUCHAI pinout, the Eagle designs and the stack breakout board are by SPEL at
+the Universidad de Chile, from
 [spel-uchile/Payload-PC104](https://github.com/spel-uchile/Payload-PC104)
-(matvidal, EliasObreque and Alex Becerra, 2018 to 2022). Its history is kept
-in this repository; the KiCad import of the stack breakout board is from 2024. Derived from, although not affiliated with,
-[pc104.org](https://pc104.org/).
+(matvidal, EliasObreque and Alex Becerra, 2018 to 2022). Its history is kept in
+this repository; the KiCad import of the stack breakout board is from 2024.
+
+The CubeSat Kit is Pumpkin, Inc.'s. PC/104 is a standard of the
+[RMS Consortium](https://www.rmsconsortium.org/), formerly the PC/104
+Consortium. This project is not affiliated with either.
 
 ## License
 
