@@ -7,6 +7,20 @@ The library is generated from, and checked against, the CubeSat Kit
 specification. Two project templates and a worked 4-layer example board are
 built from it.
 
+## Releases
+
+Each [release](https://github.com/CameronBrooks11/cubesat-pc104-kicad/releases)
+carries:
+
+| Asset | Contents |
+| --- | --- |
+| `CubeSat_PC104-<version>.zip` | The symbol and footprint library, to add to any project |
+| `cubesat-pc104-templates-<version>.zip` | Both project templates |
+| `CSK_Bus_Breakout-<version>.zip` | The breakout board's KiCad project |
+| `CSK_Bus_Breakout-fab-<version>.zip` | The breakout's Gerbers and drill files, ready to order |
+
+Changes are listed in [CHANGELOG.md](CHANGELOG.md). Everything needs KiCad 10.
+
 ## Project templates
 
 KiCad 10 project templates for a CubeSat Kit user module: the board outline, the
@@ -157,6 +171,9 @@ With [just](https://just.systems/), Python 3 and KiCad 10's `kicad-cli`:
   with `just sync-template`, then `just breakout`.
 - `just sync-template` copies the library into every template and `breakout/`.
 - `just breakout` regenerates the breakout board and fills its ground plane.
+- `just dist <version>` builds the release assets into `dist/`. Pushing a
+  `v*` tag runs it in CI and publishes a GitHub release with them, using that
+  version's section of `CHANGELOG.md` as the notes.
 - `just fab` plots the breakout board's Gerbers and drill files into
   `fab/` and zips them, and refuses if DRC finds anything. For another board,
   `just fab board=templates/CubeSat_PC104_Slot0/CubeSat_PC104_Slot0.kicad_pcb copper=F.Cu,B.Cu`.

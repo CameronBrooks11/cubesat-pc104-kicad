@@ -15,3 +15,6 @@ fp-info-cache
 _autosave-*
 
 __pycache__/
+
+# Release assets from just dist
+dist/
