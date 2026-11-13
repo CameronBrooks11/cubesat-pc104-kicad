@@ -75,8 +75,9 @@ in `tools/suchai_pins.csv`.
 ### Against the specification
 
 The footprints follow Pumpkin's *CubeSat Kit PCB Specification*, drawing
-810-00253, revision B2 (2018-11-08). Each was generated from the drawing's DXF
-for its slot; the holes and all 104 pins land on the DXF's to within 0.0001 mm.
+810-00253, revision B2 (2018-11-08). Each is generated from the drawing's DXF
+for its slot by `tools/genfp.py` (see `just footprints`); the holes and all 104
+pins land on the DXF's to within 0.0001 mm.
 Where Slot 0 departs from the drawing:
 
 - **Bottom-left edge.** The DXF leaves the outline open at the bottom-left hole,
@@ -117,11 +118,27 @@ copper, FR4). In KiCad 10.0.6, ERC is clean and DRC reports 0 violations,
 
 ## Development
 
-With [just](https://just.systems/) and KiCad 10's `kicad-cli`:
+With [just](https://just.systems/), Python 3 and KiCad 10's `kicad-cli`:
 
-- `just check` confirms each template's library copy matches `KiCad/` and runs
-  DRC with schematic parity on each template board. CI runs it in the official
-  `kicad/kicad:10.0.6` image on every pull request and push to `main`.
+- `just check` is the gate. CI runs it in the official `kicad/kicad:10.0.6`
+  image on every pull request and push to `main`. It confirms:
+  - each template's library copy matches `KiCad/`;
+  - `KiCad/CubeSat_PC104.kicad_sym` is exactly what `tools/gensym.py` generates;
+  - DRC with schematic parity is clean on both templates and the stack breakout;
+  - ERC on each template finds nothing but the unconnected bus pins, and on
+    the stack breakout nothing at all.
+- `just footprints` regenerates both footprints from the specification's DXFs
+  with `tools/genfp.py` and compares them with `KiCad/`, ignoring UUIDs. The
+  DXFs ship with Pumpkin's specification and are not in this repository; put
+  `CSK_PCB_Slot0_B2_20180823.DXF` and `CSK_PCB_Slot1_B2_20180823.DXF` in a
+  folder and pass it as `just footprints spec=<folder>`. CI cannot run this.
+- To change a footprint, edit `tools/genfp.py`, regenerate with
+  `python3 tools/genfp.py <dxf> KiCad/CubeSat_PC104.pretty/<name>.kicad_mod <name>`
+  and `kicad-cli fp upgrade --force KiCad/CubeSat_PC104.pretty`. To change a
+  symbol, edit `tools/gensym.py` or `tools/suchai_pins.csv`, then run
+  `python3 tools/gensym.py KiCad/CubeSat_PC104.kicad_sym` and
+  `kicad-cli sym upgrade --force KiCad/CubeSat_PC104.kicad_sym`. Follow either
+  with `just sync-template`.
 - `just sync-template` copies the library into every template after a change.
 - `just fab` plots the stack breakout board's Gerbers and drill files into
   `fab/` and zips them, and refuses if DRC finds anything. For another board,
