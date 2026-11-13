@@ -4,7 +4,7 @@ breakout := "PC104/StackBreakoutConnection_4layers_V1.0.kicad_pcb"
 default:
     @just --list
 
-# Library copies, symbol generator, DRC with schematic parity and ERC on every board
+# Library copies, symbol and footprint generators, DRC with schematic parity and ERC on every board
 check:
     #!/usr/bin/env bash
     set -uo pipefail
@@ -18,6 +18,9 @@ check:
     python3 tools/gensym.py "$tmp/CubeSat_PC104.kicad_sym" >/dev/null && kicad-cli sym upgrade --force "$tmp/CubeSat_PC104.kicad_sym" >/dev/null || fail "tools/gensym.py did not run"
     cmp -s "$tmp/CubeSat_PC104.kicad_sym" KiCad/CubeSat_PC104.kicad_sym || fail "KiCad/CubeSat_PC104.kicad_sym is not what tools/gensym.py generates"
     echo "KiCad/CubeSat_PC104.kicad_sym matches tools/gensym.py"
+    cp -r KiCad/CubeSat_PC104.pretty "$tmp/lib.pretty" && python3 tools/genbus.py "$tmp/lib.pretty" >/dev/null && kicad-cli fp upgrade --force "$tmp/lib.pretty" >/dev/null || fail "tools/genbus.py did not run"
+    diff <(grep -v '(uuid ' KiCad/CubeSat_PC104.pretty/CSK_PC104_Bus.kicad_mod) <(grep -v '(uuid ' "$tmp/lib.pretty/CSK_PC104_Bus.kicad_mod") || fail "CSK_PC104_Bus.kicad_mod is not what tools/genbus.py generates"
+    echo "CSK_PC104_Bus matches tools/genbus.py"
     for b in {{templates}} {{breakout}}; do
       [ -d "$b" ] && b="$b/$(basename "$b").kicad_pcb"
       kicad-cli pcb drc --severity-all --schematic-parity --refill-zones --exit-code-violations -o "$tmp/drc.rpt" "$b" >/dev/null || fail "$b: DRC" "$tmp/drc.rpt"

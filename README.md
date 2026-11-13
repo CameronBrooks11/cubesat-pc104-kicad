@@ -62,6 +62,7 @@ a project as the symbol and footprint libraries `CubeSat_PC104`.
 | --- | --- |
 | `CSK_PC104_Slot0` (footprint) | A CubeSat Kit user module in the base "Slot 0" pattern: board outline, H1 and H2 headers, mounting holes, and keepout areas. Origin at H1 pin 1. |
 | `CSK_PC104_Slot1` (footprint) | The same in the extended "Slot 1" pattern, without the 2nd switch cutout or keepouts. |
+| `CSK_PC104_Bus` (footprint) | The H1 and H2 header pads alone, as on `CSK_PC104_Slot0`: for a second bus connector on a board. Generated from `CSK_PC104_Slot0` by `tools/genbus.py`. |
 | `CSK_Bus` (symbol) | The bus headers for any payload: unit A is H1 (pins 1–52), unit B is H2 (pins 53–104), all passive. |
 | `SUCHAI_Payload` (symbol) | The SUCHAI 2 and 3 payload pinout on the same two units, with supply pins as power inputs. Unused pins are named as on `CSK_Bus`. |
 
@@ -123,7 +124,8 @@ With [just](https://just.systems/), Python 3 and KiCad 10's `kicad-cli`:
 - `just check` is the gate. CI runs it in the official `kicad/kicad:10.0.6`
   image on every pull request and push to `main`. It confirms:
   - each template's library copy matches `KiCad/`;
-  - `KiCad/CubeSat_PC104.kicad_sym` is exactly what `tools/gensym.py` generates;
+  - `KiCad/CubeSat_PC104.kicad_sym` is exactly what `tools/gensym.py`
+    generates, and `CSK_PC104_Bus` what `tools/genbus.py` generates;
   - DRC with schematic parity is clean on both templates and the stack breakout;
   - ERC on each template finds nothing but the unconnected bus pins, and on
     the stack breakout nothing at all.
