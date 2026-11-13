@@ -9,6 +9,23 @@ check:
     @for t in {{templates}}; do cmp KiCad/CubeSat_PC104.kicad_sym "$t/CubeSat_PC104.kicad_sym" && diff -r KiCad/CubeSat_PC104.pretty "$t/CubeSat_PC104.pretty" && echo "$t: library matches KiCad/" || exit 1; done
     @for t in {{templates}}; do out=$(mktemp); kicad-cli pcb drc --severity-all --schematic-parity --exit-code-violations -o "$out" "$t/$(basename $t).kicad_pcb" >/dev/null; rc=$?; [ $rc -eq 0 ] && echo "$t: DRC clean" || { cat "$out"; rm -f "$out"; exit $rc; }; rm -f "$out"; done
 
+# Regenerate the footprints from the specification's DXFs and compare them with KiCad/
+footprints spec="reference/CSK_PCB_Spec_B2_20181108":
+    #!/usr/bin/env bash
+    set -uo pipefail
+    tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+    out="$tmp/CubeSat_PC104.pretty"; mkdir "$out"
+    for s in 0 1; do
+      python3 tools/genfp.py "{{spec}}/CSK_PCB_Slot${s}_B2_20180823.DXF" "$out/CSK_PC104_Slot$s.kicad_mod" "CSK_PC104_Slot$s" >/dev/null || exit 1
+    done
+    kicad-cli fp upgrade --force "$out" >/dev/null || exit 1
+    rc=0
+    for s in 0 1; do
+      f="CSK_PC104_Slot$s.kicad_mod"
+      if diff <(grep -v '(uuid ' "KiCad/CubeSat_PC104.pretty/$f") <(grep -v '(uuid ' "$out/$f"); then echo "$f matches the specification's DXF"; else echo "FAIL: $f differs from the DXF"; rc=1; fi
+    done
+    exit $rc
+
 # Plot Gerbers and drill files for a board into fab/<board>/ and zip them; refuses if DRC finds anything
 fab board=breakout copper="F.Cu,In1.Cu,In2.Cu,B.Cu":
     @rpt=$(mktemp) && kicad-cli pcb drc --severity-all --schematic-parity --refill-zones --exit-code-violations -o "$rpt" {{board}} >/dev/null; rc=$?; [ $rc -eq 0 ] || { cat "$rpt"; rm -f "$rpt"; echo "DRC must be clean before plotting"; exit $rc; }; rm -f "$rpt"
