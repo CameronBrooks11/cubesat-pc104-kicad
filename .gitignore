@@ -2,6 +2,9 @@
 # locally for reference and never committed.
 reference/
 
+# Fabrication output from just fab
+fab/
+
 # KiCad
 templates/**/*.kicad_prl
 *-backups/
