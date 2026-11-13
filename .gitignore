@@ -7,15 +7,11 @@ fab/
 
 # KiCad
 .history/
-templates/**/*.kicad_prl
+*.kicad_prl
 *-backups/
 fp-info-cache
 *.kicad_sch-bak
 *.kicad_pcb-bak
 _autosave-*
 
-# Eagle autosaves
-*.b#*
-*.s#*
-*.l#*
 __pycache__/

@@ -3,8 +3,9 @@
 KiCad parts and boards for CubeSat Kit modules on the PC/104 form factor: two
 2×26 stack headers (H1 and H2) and four mounting holes.
 
-The library, the project templates and the stack breakout board's outline are
-checked against the CubeSat Kit specification.
+The library is generated from, and checked against, the CubeSat Kit
+specification. Two project templates and a worked 4-layer example board are
+built from it.
 
 ## Project templates
 
@@ -48,10 +49,10 @@ them; choose the parts and the side to suit the stack.
   SSQ-126-22-G-D to span the gap, and recommends components no taller than
   13.0 mm (15.24 mm spacing) or 21.5 mm (24 mm spacing) on the top side and
   3.8 mm on the bottom.
-- **Socket on the bottom.** SPEL's stack breakout mounts Samtec SSQ-126-23-G-D
-  sockets on the bottom side; with their 10.00 mm tails, the pins stand up
-  through the top. That suits a stack whose boards present pins upward, and does
-  not plug into the top of a CubeSat Kit stack, whose modules present sockets.
+- **Socket on the bottom.** A bottom-mounted stack-through socket such as
+  Samtec SSQ-126-23-G-D (10.00 mm tails) leaves its pins standing up through
+  the top. That suits a stack whose boards present pins upward, and does not
+  plug into the top of a CubeSat Kit stack, whose modules present sockets.
 
 ## Library
 
@@ -103,18 +104,31 @@ hole is bare for the same reason as Slot 0's; the other three have plated
 
 The specification documents are not in this repository.
 
-## Stack breakout board
+## Bus breakout board
 
-`PC104/` is the 4-layer stack breakout board, imported from the Eagle design in
-`Eagle/`. It carries every bus pin from the stack headers to a second pair of
-headers 16.9 mm over. It has the CubeSat Kit Slot 0 outline and keepouts, with
-copper kept 1.27 mm from the edge, and a generic 1.6 mm 4-layer stackup (35 µm
-copper, FR4). In KiCad 10.0.6, ERC is clean and DRC reports 0 violations,
-0 unconnected items and 0 schematic parity issues, with the ground pours filled.
+[`breakout/`](breakout/) is a 4-layer example board built from the Slot 0
+template: J1 sits on the stack position, and J2, a second H1/H2 header pair
+(`CSK_PC104_Bus`) mounted on the bottom 38.1 mm below it, carries every bus pin,
+pin for pin. Use it to reach the bus from below a stack, or as a starting point
+for a board that needs a second bus connector.
+
+- **Routing.** Mounting J2 on the bottom mirrors its rows, so in each of the 26
+  columns the four tracks nest without crossing: H1's odd row drops straight
+  down on F.Cu, and the other three rows each take the gap beside their column
+  on one layer (F.Cu, In2.Cu, B.Cu). No vias; 0.25 mm tracks, 0.2 mm
+  clearance, copper 1.27 mm from the edge.
+- **Ground.** In1.Cu is a plane on the bus ground pins H2.29, H2.30 and H2.32
+  (net `GND`). Every other net is named after its pin, `H1.1` to `H2.52`.
+- **Stackup.** Generic 1.6 mm 4-layer: 35 µm copper on all layers, FR4.
+- **Checks.** In KiCad 10.0.6: ERC clean; DRC 0 violations, 0 unconnected
+  items, 0 schematic parity issues.
+
+`tools/genbreakout.py` generates it (`just breakout`), so it follows the
+template and the library when they change.
 
 <p>
-  <img src="img/breakout_top.png" alt="Stack breakout, top view" width="48%" />
-  <img src="img/breakout_bottom.png" alt="Stack breakout, bottom view" width="48%" />
+  <img src="img/breakout_top.png" alt="Bus breakout, top view" width="48%" />
+  <img src="img/breakout_bottom.png" alt="Bus breakout, bottom view" width="48%" />
 </p>
 
 ## Development
@@ -123,12 +137,12 @@ With [just](https://just.systems/), Python 3 and KiCad 10's `kicad-cli`:
 
 - `just check` is the gate. CI runs it in the official `kicad/kicad:10.0.6`
   image on every pull request and push to `main`. It confirms:
-  - each template's library copy matches `KiCad/`;
+  - the library copy in each template and in `breakout/` matches `KiCad/`;
   - `KiCad/CubeSat_PC104.kicad_sym` is exactly what `tools/gensym.py`
     generates, and `CSK_PC104_Bus` what `tools/genbus.py` generates;
-  - DRC with schematic parity is clean on both templates and the stack breakout;
+  - DRC with schematic parity is clean on both templates and the breakout;
   - ERC on each template finds nothing but the unconnected bus pins, and on
-    the stack breakout nothing at all.
+    the breakout nothing at all.
 - `just footprints` regenerates both footprints from the specification's DXFs
   with `tools/genfp.py` and compares them with `KiCad/`, ignoring UUIDs. The
   DXFs ship with Pumpkin's specification and are not in this repository; put
@@ -140,19 +154,21 @@ With [just](https://just.systems/), Python 3 and KiCad 10's `kicad-cli`:
   symbol, edit `tools/gensym.py` or `tools/suchai_pins.csv`, then run
   `python3 tools/gensym.py KiCad/CubeSat_PC104.kicad_sym` and
   `kicad-cli sym upgrade --force KiCad/CubeSat_PC104.kicad_sym`. Follow either
-  with `just sync-template`.
-- `just sync-template` copies the library into every template after a change.
-- `just fab` plots the stack breakout board's Gerbers and drill files into
+  with `just sync-template`, then `just breakout`.
+- `just sync-template` copies the library into every template and `breakout/`.
+- `just breakout` regenerates the breakout board and fills its ground plane.
+- `just fab` plots the breakout board's Gerbers and drill files into
   `fab/` and zips them, and refuses if DRC finds anything. For another board,
   `just fab board=templates/CubeSat_PC104_Slot0/CubeSat_PC104_Slot0.kicad_pcb copper=F.Cu,B.Cu`.
 
 ## Credits
 
-The SUCHAI pinout, the Eagle designs and the stack breakout board are by SPEL at
-the Universidad de Chile, from
+The SUCHAI payload pinout is from SPEL at the Universidad de Chile,
 [spel-uchile/Payload-PC104](https://github.com/spel-uchile/Payload-PC104)
-(matvidal, EliasObreque and Alex Becerra, 2018 to 2022). Its history is kept in
-this repository; the KiCad import of the stack breakout board is from 2024.
+(matvidal, EliasObreque and Alex Becerra, 2018 to 2022). This repository began
+as a KiCad import of their Eagle stack breakout; that board and the Eagle
+files were removed when the library, templates and breakout were redone, and
+remain in this repository's history under SPEL's GPL-3.0.
 
 The CubeSat Kit is Pumpkin, Inc.'s. PC/104 is a standard of the
 [RMS Consortium](https://www.rmsconsortium.org/), formerly the PC/104
@@ -160,22 +176,10 @@ Consortium. This project is not affiliated with either.
 
 ## License
 
-Two licenses apply, by directory:
+[CERN-OHL-P-2.0](./LICENSE): a permissive open-hardware licence. You can use
+the library, templates and breakout in your own boards, open or closed, and
+modify them, without sharing your design. Keep the licence notice with any copy
+of these files. The source is
+<https://github.com/CameronBrooks11/cubesat-pc104-kicad>.
 
-| What | License |
-| --- | --- |
-| Everything except the two folders below: the library, both templates, `tools/`, CI and docs | [CERN-OHL-P-2.0](./LICENSE) |
-| `PC104/` (the stack breakout board) and `Eagle/` (SPEL's original designs), and the breakout renders `img/breakout_*.png` | [GPL-3.0](./PC104/LICENSE), as published by SPEL |
-
-CERN-OHL-P-2.0 is a permissive open-hardware licence: you can use the footprints
-and templates in your own boards, open or closed, and modify them, without
-sharing your design. Keep the licence notice with any copy of these files. The
-source is <https://github.com/CameronBrooks11/cubesat-pc104-kicad>.
-
-The stack breakout is SPEL's design, edited here, so it stays under SPEL's
-GPL-3.0. Nothing outside `PC104/` and `Eagle/` is derived from it: the
-`SUCHAI_Payload` symbol is drawn from the pinout table, not from SPEL's symbol.
-Some library parts embedded in SPEL's Eagle files are SparkFun's and carry
-their own CC BY-SA 4.0 notice.
-
-Commits before this change were published under GPL-3.0 throughout.
+Commits before the relicensing carried SPEL's GPL-3.0 and remain under it.
