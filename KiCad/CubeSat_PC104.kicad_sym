@@ -2026,7 +2026,7 @@
 				)
 			)
 		)
-		(property "Description" "SUCHAI 2 and 3 payload bus pinout on the CubeSat Kit H1/H2 headers, from SPEL's Payload-PC104"
+		(property "Description" "SUCHAI 2 and 3 payload bus pinout on the CubeSat Kit H1/H2 headers, from SPEL's Payload-PC104 (CI probe)"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
