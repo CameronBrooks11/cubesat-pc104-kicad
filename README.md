@@ -92,10 +92,15 @@ new outline bare.
 
 ## Development
 
-With [just](https://just.systems/) and KiCad 10's `kicad-cli`, `just check`
-confirms the template's library copy matches `KiCad/` and runs DRC with
-schematic parity on the template board. After changing the library, run
-`just sync-template`.
+With [just](https://just.systems/) and KiCad 10's `kicad-cli`:
+
+- `just check` confirms the template's library copy matches `KiCad/` and runs
+  DRC with schematic parity on the template board. CI runs it in the official
+  `kicad/kicad:10.0.6` image on every pull request and push to `main`.
+- `just sync-template` copies the library into the template after a change.
+- `just fab` plots the stack breakout board's Gerbers and drill files into
+  `fab/` and zips them, and refuses if DRC finds anything. For another board,
+  `just fab board=templates/CubeSat_PC104_Slot0/CubeSat_PC104_Slot0.kicad_pcb copper=F.Cu,B.Cu`.
 
 ## Credits
 
