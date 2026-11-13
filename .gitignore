@@ -6,6 +6,7 @@ reference/
 fab/
 
 # KiCad
+.history/
 templates/**/*.kicad_prl
 *-backups/
 fp-info-cache
