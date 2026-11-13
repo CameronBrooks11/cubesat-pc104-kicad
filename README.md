@@ -63,11 +63,14 @@ a project as the symbol and footprint libraries `CubeSat_PC104`.
 | `CSK_PC104_Slot0` (footprint) | A CubeSat Kit user module in the base "Slot 0" pattern: board outline, H1 and H2 headers, mounting holes, and keepout areas. Origin at H1 pin 1. |
 | `CSK_PC104_Slot1` (footprint) | The same in the extended "Slot 1" pattern, without the 2nd switch cutout or keepouts. |
 | `CSK_Bus` (symbol) | The bus headers for any payload: unit A is H1 (pins 1–52), unit B is H2 (pins 53–104), all passive. |
-| `SUCHAI_Payload` (symbol) | The SUCHAI 2 and 3 payload pinout on the same headers, with supply pins as power inputs. |
+| `SUCHAI_Payload` (symbol) | The SUCHAI 2 and 3 payload pinout on the same two units, with supply pins as power inputs. Unused pins are named as on `CSK_Bus`. |
 
 <img src="img/CSK_PC104_Slot0.png" alt="CSK_PC104_Slot0 footprint" width="400" />
 <img src="img/CSK_Bus_H1.png" alt="CSK_Bus unit A, H1" height="400" />
-<img src="img/SUCHAI_Payload.png" alt="SUCHAI_Payload symbol" width="400" />
+<img src="img/SUCHAI_Payload.png" alt="SUCHAI_Payload symbol, units A and B" width="400" />
+
+`tools/gensym.py` generates the symbol library; the SUCHAI pinout is the table
+in `tools/suchai_pins.csv`.
 
 ### Against the specification
 

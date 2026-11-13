@@ -56,7 +56,7 @@
 					)
 				)
 			)
-			(property "Description" "CubeSat Kit bus: H1 and H2 2x26 headers, pins numbered as on the CSK_PC104_Slot0 footprint (H1 = 1-52, H2 = 53-104)"
+			(property "Description" "CubeSat Kit bus: H1 and H2 2x26 headers, pins numbered as on the CSK_PC104 footprints (H1 = 1-52, H2 = 53-104)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
