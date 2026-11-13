@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CubeSat Kit module, Slot 0</title>
+</head>
+<body>
+<h1>CubeSat Kit module, Slot 0</h1>
+<p>A 90.17 mm x 95.89 mm CubeSat Kit user module in the base "Slot 0" pattern
+of Pumpkin's CubeSat Kit PCB specification (810-00253 rev B2): the board
+outline, the H1 and H2 2x26 bus headers on the PC/104 grid, four mounting
+holes, and keepouts for the separation switches and the "no parts" patch on
+the right edge.</p>
+<p>The schematic holds the bus as one connector, J1: unit A is H1 (pins 1-52)
+and unit B is H2 (pins 53-104), every pin unconnected. Wire the pins the
+module uses and put a no-connect flag on the rest. The board keeps copper
+1.27 mm from the edge, as the specification recommends.</p>
+<p>The symbol and the footprint are in the project's own
+<code>CubeSat_PC104</code> libraries, so nothing else has to be installed.</p>
+<p><img src="brd.png" style="width:100%" alt="Top view of the board" /></p>
+<p>From cubesat-pc104-kicad. GPL-3.0.</p>
+</body>
+</html>
