@@ -4,8 +4,7 @@ KiCad parts and boards for CubeSat Kit modules on the PC/104 form factor: two
 2×26 stack headers (H1 and H2) and four mounting holes.
 
 The library, the project templates and the stack breakout board's outline are
-checked against the CubeSat Kit specification. The breakout board still needs
-some placement work, listed below.
+checked against the CubeSat Kit specification.
 
 ## Project templates
 
@@ -104,22 +103,14 @@ The specification documents are not in this repository.
 `PC104/` is the 4-layer stack breakout board, imported from the Eagle design in
 `Eagle/`. It carries every bus pin from the stack headers to a second pair of
 headers 16.9 mm over. It has the CubeSat Kit Slot 0 outline and keepouts, with
-copper kept 1.27 mm from the edge. In KiCad 10.0.6 format, ERC is clean,
-schematic parity is clean, the ground pours are filled, and DRC finds no
-unconnected items. It still has 15 DRC findings that need placement in the
-editor:
+copper kept 1.27 mm from the edge, and a generic 1.6 mm 4-layer stackup (35 µm
+copper, FR4). In KiCad 10.0.6, ERC is clean and DRC reports 0 violations,
+0 unconnected items and 0 schematic parity issues, with the ground pours filled.
 
-- J2 pin 52's track on F.Cu passes through the keep-out ring of the top-left
-  mounting hole, probably room for a screw head (2 errors). The inner layers are
-  taken at that height, so it needs a new route.
-- Silkscreen overlaps copper in 10 places: the rings around the mounting
-  holes, two pin labels next to holes, and the back outlines of J2 and J4 over
-  the pads of the headers beside them.
-- The board edge clips silkscreen in 3 places: the board title at the top
-  notch, and the rings of two mounting holes.
-
-The ground pours' outlines are still SPEL's, so they leave a few corners of the
-new outline bare.
+<p>
+  <img src="img/breakout_top.png" alt="Stack breakout, top view" width="48%" />
+  <img src="img/breakout_bottom.png" alt="Stack breakout, bottom view" width="48%" />
+</p>
 
 ## Development
 

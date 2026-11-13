@@ -51,28 +51,6 @@
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_circle
 		(center 0 0)
-		(end 1.7 0)
-		(stroke
-			(width 0.2032)
-			(type solid)
-		)
-		(fill no)
-		(layer "F.SilkS")
-		(uuid "1e0b811b-85c8-4193-be71-88de66f688eb")
-	)
-	(fp_circle
-		(center 0 0)
-		(end 3.429 0)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill no)
-		(layer "F.SilkS")
-		(uuid "c650801d-04fa-445a-8bc4-adb96ef6e5d2")
-	)
-	(fp_circle
-		(center 0 0)
 		(end 3.048 0)
 		(stroke
 			(width 2.032)
