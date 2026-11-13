@@ -141,4 +141,22 @@ Consortium. This project is not affiliated with either.
 
 ## License
 
-GPL-3.0, as published by SPEL. See [LICENSE](./LICENSE).
+Two licenses apply, by directory:
+
+| What | License |
+| --- | --- |
+| Everything except the two folders below: the library, both templates, `tools/`, CI and docs | [CERN-OHL-P-2.0](./LICENSE) |
+| `PC104/` (the stack breakout board) and `Eagle/` (SPEL's original designs), and the breakout renders `img/breakout_*.png` | [GPL-3.0](./PC104/LICENSE), as published by SPEL |
+
+CERN-OHL-P-2.0 is a permissive open-hardware licence: you can use the footprints
+and templates in your own boards, open or closed, and modify them, without
+sharing your design. Keep the licence notice with any copy of these files. The
+source is <https://github.com/CameronBrooks11/cubesat-pc104-kicad>.
+
+The stack breakout is SPEL's design, edited here, so it stays under SPEL's
+GPL-3.0. Nothing outside `PC104/` and `Eagle/` is derived from it: the
+`SUCHAI_Payload` symbol is drawn from the pinout table, not from SPEL's symbol.
+Some library parts embedded in SPEL's Eagle files are SparkFun's and carry
+their own CC BY-SA 4.0 notice.
+
+Commits before this change were published under GPL-3.0 throughout.
