@@ -3,6 +3,7 @@
 reference/
 
 # KiCad
+templates/**/*.kicad_prl
 *-backups/
 fp-info-cache
 *.kicad_sch-bak
