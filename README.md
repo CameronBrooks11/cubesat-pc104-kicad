@@ -3,8 +3,9 @@
 KiCad parts and boards for CubeSat Kit modules on the PC/104 form factor: two
 2×26 stack headers (H1 and H2) and four mounting holes.
 
-Work in progress: the library and the project template are checked against the
-CubeSat Kit specification; the stack breakout board's outline is next.
+The library, the project template and the stack breakout board's outline are
+checked against the CubeSat Kit specification. The breakout board still needs
+some placement work, listed below.
 
 ## Project template
 
@@ -71,10 +72,11 @@ The specification documents are not in this repository.
 
 `PC104/` is the 4-layer stack breakout board, imported from the Eagle design in
 `Eagle/`. It carries every bus pin from the stack headers to a second pair of
-headers 16.9 mm over. In KiCad 10.0.6 format, ERC is clean, schematic parity is
-clean, and with the zones filled DRC finds no unconnected items. It still has
-SPEL's outline, which extends past the CubeSat Kit outline, and 12 DRC findings
-that need placement in the editor:
+headers 16.9 mm over. It has the CubeSat Kit Slot 0 outline and keepouts, with
+copper kept 1.27 mm from the edge. In KiCad 10.0.6 format, ERC is clean,
+schematic parity is clean, the ground pours are filled, and DRC finds no
+unconnected items. It still has 15 DRC findings that need placement in the
+editor:
 
 - J2 pin 52's track on F.Cu passes through the keep-out ring of the top-left
   mounting hole, probably room for a screw head (2 errors). The inner layers are
@@ -82,8 +84,11 @@ that need placement in the editor:
 - Silkscreen overlaps copper in 10 places: the rings around the mounting
   holes, two pin labels next to holes, and the back outlines of J2 and J4 over
   the pads of the headers beside them.
+- The board edge clips silkscreen in 3 places: the board title at the top
+  notch, and the rings of two mounting holes.
 
-The ground pours are saved unfilled; fill them (B) before plotting.
+The ground pours' outlines are still SPEL's, so they leave a few corners of the
+new outline bare.
 
 ## Development
 
