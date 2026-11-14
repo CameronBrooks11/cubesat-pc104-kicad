@@ -4,3 +4,11 @@ img.plot {
   padding: 0.5rem;
   border-radius: 0.2rem;
 }
+
+/* Footprint plots use KiCad's board-editor colours, drawn for its dark canvas:
+   on white the outline and silkscreen all but vanish. */
+img.plot-board {
+  background: #001023;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+}
