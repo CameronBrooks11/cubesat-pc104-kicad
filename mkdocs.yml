@@ -1,0 +1,62 @@
+site_name: cubesat-pc104-kicad
+site_description: KiCad library, templates and an example board for CubeSat Kit modules on the PC/104 form factor
+site_url: https://cameronbrooks11.github.io/cubesat-pc104-kicad/
+repo_url: https://github.com/CameronBrooks11/cubesat-pc104-kicad
+repo_name: CameronBrooks11/cubesat-pc104-kicad
+edit_uri: edit/main/docs/
+copyright: CERN-OHL-P-2.0
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Templates: templates.md
+  - Library: library.md
+  - Bus pinout: pinout.md
+  - SUCHAI payload: suchai.md
+  - Stack and mechanical: mechanical.md
+  - Bus breakout: breakout.md
+  - Development: development.md
+  - Changelog: changelog.md
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Light mode
+  features:
+    - content.code.copy
+    - navigation.footer
+    - navigation.top
+    - search.highlight
+    - toc.follow
+
+extra_css:
+  - assets/extra.css
+
+hooks:
+  - tools/mkdocs_hooks.py
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true

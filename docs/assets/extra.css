@@ -1,0 +1,6 @@
+/* Symbol and footprint plots are drawn for a white sheet; keep one under them in dark mode. */
+img.plot {
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+}

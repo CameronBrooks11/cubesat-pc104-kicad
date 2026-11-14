@@ -18,3 +18,7 @@ __pycache__/
 
 # Release assets from just dist
 dist/
+
+# Docs site: pictures from just renders, output from just docs
+docs/renders/
+site/
