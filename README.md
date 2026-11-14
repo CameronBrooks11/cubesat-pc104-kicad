@@ -19,7 +19,9 @@ carries:
 | `CSK_Bus_Breakout-<version>.zip` | The breakout board's KiCad project |
 | `CSK_Bus_Breakout-fab-<version>.zip` | The breakout's Gerbers and drill files, ready to order |
 
-Changes are listed in [CHANGELOG.md](CHANGELOG.md). Everything needs KiCad 10.
+Changes are listed in [CHANGELOG.md](CHANGELOG.md). Everything needs KiCad 10,
+and is tested with 10.0.6; the patch before it cannot create a project from a
+template folder.
 
 ## Project templates
 
@@ -39,8 +41,10 @@ unconnected until you wire them or flag them.
 </p>
 
 1. Clone this repository, or copy a template directory out of it.
-2. In KiCad choose **File → New Project from Template**, open the user
-   templates tab and point it at `templates/`.
+2. In KiCad 10.0.6 or later choose **File → New Project from Template**, open
+   the user templates tab and point it at `templates/`. To list the templates
+   every time, set `KICAD_USER_TEMPLATE_DIR` to that folder under
+   **Preferences → Configure Paths**.
 3. Pick the template and name the project. KiCad copies the files and renames
    them after the project.
 4. In the schematic, wire the bus pins the module uses and put a no-connect
