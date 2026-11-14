@@ -14,7 +14,7 @@ board are built from the library, and each passes DRC and ERC in KiCad 10.
 
 ## What is here
 
-| | |
+| Page | What it covers |
 | --- | --- |
 | [**Library**](library.md) | The `CubeSat_PC104` symbol and footprint library: both board patterns, a bare bus connector, the bus symbol and the SUCHAI payload symbol. |
 | [**Templates**](templates.md) | Two KiCad project templates, one per board pattern: start a module from one and wire the pins you use. |
