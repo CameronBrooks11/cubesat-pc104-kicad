@@ -1,7 +1,7 @@
-"""Generate KiCad/CubeSat_PC104.kicad_sym.
+"""Generate library/CubeSat_PC104.kicad_sym.
 
-usage: python3 tools/gensym.py KiCad/CubeSat_PC104.kicad_sym
-then:  kicad-cli sym upgrade --force KiCad/CubeSat_PC104.kicad_sym
+usage: python3 tools/gensym.py library/CubeSat_PC104.kicad_sym
+then:  kicad-cli sym upgrade --force library/CubeSat_PC104.kicad_sym
 
 Both symbols have two units, H1 (pins 1-52) and H2 (pins 53-104), with odd
 pins on the left and even on the right as on the header, numbered as on the
