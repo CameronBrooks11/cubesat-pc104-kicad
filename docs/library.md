@@ -32,7 +32,7 @@ A CubeSat Kit user module in the base "Slot 0" pattern: the board outline on
 holes, and rule areas that keep footprints off the right-edge patch and the
 separation-switch clearances. The origin is H1 pin 1.
 
-![CSK_PC104_Slot0 footprint](renders/CSK_PC104_Slot0.svg){ .plot width="480" }
+![CSK_PC104_Slot0 footprint](renders/CSK_PC104_Slot0.svg){ .plot-board width="480" }
 
 The keepouts are rule areas, so they appear in the board editor but not in
 this plot. [Stack and mechanical](mechanical.md#against-the-specification)
@@ -43,7 +43,7 @@ lists where the footprint departs from the specification's drawing.
 The same headers and holes in the extended "Slot 1" pattern: a full
 bottom-left corner and no keepouts.
 
-![CSK_PC104_Slot1 footprint](renders/CSK_PC104_Slot1.svg){ .plot width="480" }
+![CSK_PC104_Slot1 footprint](renders/CSK_PC104_Slot1.svg){ .plot-board width="480" }
 
 ### `CSK_PC104_Bus`
 
@@ -52,7 +52,7 @@ outline or holes. Use it for a second bus connector on a board, as the
 [bus breakout](breakout.md) does, or to put the bus on a board whose outline
 you draw yourself.
 
-![CSK_PC104_Bus footprint](renders/CSK_PC104_Bus.svg){ .plot width="480" }
+![CSK_PC104_Bus footprint](renders/CSK_PC104_Bus.svg){ .plot-board width="480" }
 
 ## Symbols
 
