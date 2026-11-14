@@ -30,7 +30,8 @@ jobs:
         run: apt-get update && apt-get install -y --no-install-recommends just
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v10
+        # setup-uv publishes no moving major tag, so pin the release.
+        uses: astral-sh/setup-uv@v10.3.3
 
       - name: just renders
         run: just renders
