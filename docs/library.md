@@ -64,9 +64,9 @@ where the names come from. Its footprint field defaults to `CSK_PC104_Slot0`.
 
 <div class="grid" markdown>
 
-![CSK_Bus unit A, H1](renders/CSK_Bus_unit1.svg){ .plot }
+![CSK_Bus unit A, H1](renders/CSK_Bus_unit1.svg){ .plot width="300" }
 
-![CSK_Bus unit B, H2](renders/CSK_Bus_unit2.svg){ .plot }
+![CSK_Bus unit B, H2](renders/CSK_Bus_unit2.svg){ .plot width="300" }
 
 </div>
 
@@ -83,9 +83,9 @@ the payload does not use keep their `CSK_Bus` names and stay passive.
 
 <div class="grid" markdown>
 
-![SUCHAI_Payload unit A, H1](renders/SUCHAI_Payload_unit1.svg){ .plot }
+![SUCHAI_Payload unit A, H1](renders/SUCHAI_Payload_unit1.svg){ .plot width="300" }
 
-![SUCHAI_Payload unit B, H2](renders/SUCHAI_Payload_unit2.svg){ .plot }
+![SUCHAI_Payload unit B, H2](renders/SUCHAI_Payload_unit2.svg){ .plot width="300" }
 
 </div>
 

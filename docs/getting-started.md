@@ -30,9 +30,8 @@ template's only ERC finding. The board passes DRC as it is.
 
 ## Add the library to an existing project
 
-The library is two files' worth of KiCad library: the symbols in
-`CubeSat_PC104.kicad_sym` and the footprints in the folder
-`CubeSat_PC104.pretty`. Get them from `CubeSat_PC104-<version>.zip` on the
+The library is one symbol file, `CubeSat_PC104.kicad_sym`, and one footprint
+folder, `CubeSat_PC104.pretty`. Get them from `CubeSat_PC104-<version>.zip` on the
 [releases page](https://github.com/CameronBrooks11/cubesat-pc104-kicad/releases),
 or from `library/` in a clone.
 
