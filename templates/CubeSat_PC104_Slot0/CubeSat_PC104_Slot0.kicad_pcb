@@ -86,7 +86,7 @@
 	(footprint "CubeSat_PC104:CSK_PC104_Slot0"
 		(layer "F.Cu")
 		(uuid "fd444920-4cd0-4def-b972-2762aac1c935")
-		(at 100 100)
+		(at 116.84 68.58)
 		(descr "CubeSat Kit bus board, base Slot 0 pattern per Pumpkin 810-00253 rev B2: outline, H1/H2 2x26 headers (0.1 in grid, 0.025 in square pins), 4x 3.18 mm mounting holes, and keepouts. Origin at H1 pin 1.")
 		(tags "CubeSat PC104 CSK Pumpkin H1 H2")
 		(property "Reference" "J1"
@@ -1600,7 +1600,7 @@
 			)
 			(polygon
 				(pts
-					(xy 176.2 121.7678) (xy 167.564 121.7678) (xy 167.564 128.8798) (xy 176.2 128.8798)
+					(xy 193.04 90.3478) (xy 184.404 90.3478) (xy 184.404 97.4598) (xy 193.04 97.4598)
 				)
 			)
 		)
@@ -1631,7 +1631,7 @@
 			)
 			(polygon
 				(pts
-					(xy 118.415 182.3214) (xy 98.5776 182.3214) (xy 98.5776 175.9714) (xy 118.415 175.9714)
+					(xy 135.255 150.9014) (xy 115.4176 150.9014) (xy 115.4176 144.5514) (xy 135.255 144.5514)
 				)
 			)
 		)
@@ -1662,7 +1662,7 @@
 			)
 			(polygon
 				(pts
-					(xy 179.3496 109.525) (xy 172.9996 109.525) (xy 172.9996 89.6876) (xy 179.3496 89.6876)
+					(xy 196.1896 78.105) (xy 189.8396 78.105) (xy 189.8396 58.2676) (xy 196.1896 58.2676)
 				)
 			)
 		)
