@@ -6,6 +6,15 @@ change that moves a pad, hole or outline is a major version.
 
 ## [Unreleased]
 
+### Added
+
+- A documentation site, <https://cameronbrooks11.github.io/cubesat-pc104-kicad/>,
+  built from `docs/` with MkDocs and published from `main`: getting started,
+  the templates, each part, the bus and SUCHAI pinouts (written from the same
+  tables as the symbols), stack and mechanical notes, the breakout and
+  development. `just renders` draws its pictures with `kicad-cli`; `just docs`
+  builds it. The README is now an overview that links to it.
+
 ### Changed
 
 - `CSK_Bus` pins are named by their CubeSat Kit bus signal (`IO.23`,

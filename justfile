@@ -91,3 +91,27 @@ breakout:
 # Copy the library into every template and the breakout after changing it in library/
 sync-template:
     @for t in {{projects}}; do cp library/CubeSat_PC104.kicad_sym "$t/" && rm -f "$t"/CubeSat_PC104.pretty/*.kicad_mod && cp library/CubeSat_PC104.pretty/*.kicad_mod "$t/CubeSat_PC104.pretty/" && echo "synced $t"; done
+
+# Render the docs' pictures with kicad-cli into docs/renders/: symbols, footprints and boards
+renders:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    out=docs/renders; rm -rf "$out"; mkdir -p "$out"
+    for s in CSK_Bus SUCHAI_Payload; do kicad-cli sym export svg --symbol "$s" -o "$out" library/CubeSat_PC104.kicad_sym >/dev/null; done
+    for f in CSK_PC104_Slot0 CSK_PC104_Slot1 CSK_PC104_Bus; do
+      kicad-cli fp export svg --fp "$f" --layers F.Cu,B.Cu,Edge.Cuts,F.SilkS,F.Fab -o "$out" library/CubeSat_PC104.pretty >/dev/null
+    done
+    render() { kicad-cli pcb render --side "$2" --width 1200 --height 900 --quality basic --background opaque -o "$out/$3.png" "$1" >/dev/null; }
+    render templates/CubeSat_PC104_Slot0/CubeSat_PC104_Slot0.kicad_pcb top Slot0_top
+    render templates/CubeSat_PC104_Slot1/CubeSat_PC104_Slot1.kicad_pcb top Slot1_top
+    render {{breakout_pcb}} top breakout_top
+    render {{breakout_pcb}} bottom breakout_bottom
+    ls "$out"
+
+# Build the docs site into site/ (after just renders), failing on any warning
+docs:
+    uv run --no-project --with-requirements docs/requirements.txt mkdocs build --strict
+
+# Serve the docs site at http://127.0.0.1:8000 while editing
+serve:
+    uv run --no-project --with-requirements docs/requirements.txt mkdocs serve
