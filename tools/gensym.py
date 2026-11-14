@@ -7,7 +7,8 @@ Both symbols have two units, H1 (pins 1-52) and H2 (pins 53-104), with odd
 pins on the left and even on the right as on the header, numbered as on the
 CSK_PC104_* footprints.
 
-- CSK_Bus: every pin passive, named H1.n / H2.n.
+- CSK_Bus: every pin passive, named by its CubeSat Kit bus signal from
+  tools/csk_bus_pins.csv (Pumpkin's MBM 2 datasheet, 710-01362 rev E).
 - SUCHAI_Payload: names and electrical types from tools/suchai_pins.csv;
   pins the table leaves unnamed are passive and named like CSK_Bus's.
 
@@ -55,8 +56,18 @@ def symbol(name, ref, keywords, description, pins, half_width):
     return "\n".join(out)
 
 
+def bus_signals():
+    with open(os.path.join(HERE, "csk_bus_pins.csv"), newline="") as f:
+        names = {int(row["pin"]): row["signal"] for row in csv.DictReader(f)}
+    assert sorted(names) == list(range(1, 105)), "csk_bus_pins.csv must list pins 1-104 once each"
+    return names
+
+
+BUS = bus_signals()
+
+
 def bus_name(number):
-    return f"H1.{number}" if number <= 52 else f"H2.{number - 52}"
+    return BUS[number]
 
 
 def suchai_pins():
@@ -75,7 +86,7 @@ def main(out):
         "(kicad_symbol_lib (version 20211014) (generator kicad_symbol_editor)",
         symbol("CSK_Bus", "J", "CubeSat Kit PC104 bus H1 H2 header",
                "CubeSat Kit bus: H1 and H2 2x26 headers, pins numbered as on the CSK_PC104 footprints"
-               " (H1 = 1-52, H2 = 53-104)", generic, 7.62),
+               " (H1 = 1-52, H2 = 53-104)", generic, 10.16),
         symbol("SUCHAI_Payload", "J", "CubeSat Kit PC104 bus SUCHAI payload",
                "SUCHAI 2 and 3 payload pinout on the CubeSat Kit H1 and H2 headers"
                " (H1 = 1-52, H2 = 53-104)", suchai_pins(), 10.16),

@@ -6,6 +6,18 @@ change that moves a pad, hole or outline is a major version.
 
 ## [Unreleased]
 
+### Changed
+
+- `CSK_Bus` pins are named by their CubeSat Kit bus signal (`IO.23`,
+  `SDA_SYS`, `+5V_SYS`, `DGND`, …) instead of `H1.1` to `H2.52`, from the new
+  table `tools/csk_bus_pins.csv` (Pumpkin MBM 2 datasheet, 710-01362 rev E).
+  `SUCHAI_Payload` pins its table leaves unnamed take the same names. Pin
+  numbers, electrical types and footprints are unchanged.
+- `CSK_Bus` is drawn wider (body half-width 10.16 mm, as `SUCHAI_Payload`) so
+  the longer names fit; its pins move 2.54 mm outward. The templates and the
+  breakout carry the new symbol. In an existing project, **Update Symbols from
+  Library** moves the pins, so wires to them need reattaching.
+
 ## [1.0.0]
 
 First release. Everything is KiCad 10 and CERN-OHL-P-2.0.
