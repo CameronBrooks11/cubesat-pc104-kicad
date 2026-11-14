@@ -130,7 +130,7 @@ def schematic(tpl_root, new_root):
     for (ref, unit), (x, y) in sorted(placed.items()):
         for k in range(52):
             pin = (unit - 1) * 52 + k + 1
-            lx = -11.43 if k % 2 == 0 else 11.43
+            lx = -13.97 if k % 2 == 0 else 13.97  # CSK_Bus pin ends: half width 10.16 + pin 3.81
             ly = 31.75 - PITCH * (k // 2)
             ang, just = (180, "right") if lx < 0 else (0, "left")
             labels.append(f'\t(label "{net(pin)}" (at {f(x + lx)} {f(y - ly)} {ang}) (fields_autoplaced yes)\n'

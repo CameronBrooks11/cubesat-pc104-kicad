@@ -997,7 +997,7 @@
       {
         "filename": "CSK_Bus_Breakout.kicad_sch",
         "name": "CSK_Bus_Breakout",
-        "uuid": "6b717d4a-61fa-4b69-9f0a-0ac4571a927f"
+        "uuid": "f86021ae-3d01-4c6e-b43f-fadf5dc740c1"
       }
     ],
     "used_designators": "",
@@ -1005,7 +1005,7 @@
   },
   "sheets": [
     [
-      "6b717d4a-61fa-4b69-9f0a-0ac4571a927f",
+      "f86021ae-3d01-4c6e-b43f-fadf5dc740c1",
       "Root"
     ]
   ],
