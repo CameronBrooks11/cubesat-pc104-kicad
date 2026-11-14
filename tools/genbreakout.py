@@ -31,6 +31,13 @@ PITCH = 2.54
 DROP = 15 * PITCH            # J2's H1 pin 1 sits this far below J1's
 TRACK = 0.25
 GND_PINS = {81, 82, 84}      # H2.29, H2.30, H2.32
+TITLE_BLOCK = '(title_block (title "CSK bus breakout") (rev "1.0") (comment 1 "J2 (bottom) carries J1 pin for pin"))'
+# A3 schematic layout: the four units on one row, centred in the space above the title block
+SHEET_Y = 129.54
+SHEET_AT = {("J1", 1): (86.36, SHEET_Y), ("J1", 2): (162.56, SHEET_Y),
+            ("J2", 1): (264.16, SHEET_Y), ("J2", 2): (340.36, SHEET_Y)}
+SHEET_PAIR_AT = {"J1": (124.46, SHEET_Y - 43.18), "J2": (302.26, SHEET_Y - 43.18)}
+SHEET_NOTE_AT = (63.5, 50.8)
 ROW_LAYER = {0: "F.Cu", 1: "F.Cu", 2: "In2.Cu", 3: "B.Cu"}
 
 
@@ -75,7 +82,7 @@ def block_at(text, start):
 def schematic(tpl_root, new_root):
     s = open(os.path.join(TPL, TPL_NAME + ".kicad_sch")).read()
     s = s.replace(tpl_root, new_root).replace(f'(project "{TPL_NAME}"', f'(project "{NAME}"')
-    s = s.replace('(paper "A4")', '(paper "A3")\n\t(title_block (title "CSK bus breakout") (comment 1 "J2 (bottom) carries J1 pin for pin"))', 1)
+    s = s.replace('(paper "A4")', '(paper "A3")\n' + TITLE_BLOCK, 1)
     syms = [m.start() + 1 for m in re.finditer(r"\n\t\(symbol\n\t\t\(lib_id", s)]
     units = {}
     for st in syms:
@@ -83,21 +90,42 @@ def schematic(tpl_root, new_root):
         unit = int(re.search(r"\(unit (\d)\)", b).group(1))
         units[unit] = b
     assert sorted(units) == [1, 2], units.keys()
-    placed = {}   # (ref, unit) -> (x, y)
+
+    def moved(block, to):
+        x, y = map(float, re.search(r"\(at ([-\d.]+) ([-\d.]+) 0\)", block).groups())
+        dx, dy = to[0] - x, to[1] - y
+        return re.sub(r"\(at ([-\d.]+) ([-\d.]+) (\d+)\)",
+                      lambda m: f"(at {f(float(m[1]) + dx)} {f(float(m[2]) + dy)} {m[3]})", block)
+
     new_blocks = []
     j2a_uuid = None
     for unit, b in sorted(units.items()):
-        x, y = map(float, re.search(r"\(at ([-\d.]+) ([-\d.]+) 0\)", b).groups())
-        placed[("J1", unit)] = (x, y)
+        s = s.replace(b, moved(b, SHEET_AT[("J1", unit)]), 1)
         c = b.replace('(property "Reference" "J1"', '(property "Reference" "J2"').replace('(reference "J1")', '(reference "J2")')
         c = c.replace('"CubeSat_PC104:CSK_PC104_Slot0"', '"CubeSat_PC104:CSK_PC104_Bus"')
-        dx = 177.8
-        c = re.sub(r"\(at ([-\d.]+) ([-\d.]+) (\d+)\)", lambda m: f"(at {f(float(m[1]) + dx)} {m[2]} {m[3]})", c)
+        c = moved(c, SHEET_AT[("J2", unit)])
         c = re.sub(r'\(uuid "[^"]+"\)', lambda _: f'(uuid "{U()}")', c)
         if unit == 1:
             j2a_uuid = re.search(r'\(uuid "([^"]+)"\)', c).group(1)
-        placed[("J2", unit)] = (x + dx, y)
         new_blocks.append(c)
+    placed = SHEET_AT
+
+    # The template's note tells a module designer to wire the bus; this board's notes say what it is.
+    note = re.search(r'\n\t\(text "CubeSat Kit bus.*?\n\t\)', s, re.S)
+    assert note, "template note not found"
+    texts = [
+        (SHEET_NOTE_AT, "left", "Every J1 bus pin is carried to the same pin of J2. Nets are named after the pin, H1.1 to H2.52;\\n"
+                                "H2.29, H2.30 and H2.32 are GND, joined to the In1.Cu plane.\\n"
+                                "Board: CubeSat Kit Slot 0 per Pumpkin 810-00253 rev B2, 4 layers, copper to edge clearance 1.27 mm."),
+        (SHEET_PAIR_AT["J1"], "center", "J1: stack connector (CSK_PC104_Slot0), top side"),
+        (SHEET_PAIR_AT["J2"], "center", "J2: second H1/H2 header pair (CSK_PC104_Bus), bottom side, 38.1 mm below J1"),
+    ]
+    blocks = []
+    for (x, y), just, text in texts:
+        j = "(justify left bottom)" if just == "left" else "(justify bottom)"
+        blocks.append(f'\t(text "{text}" (exclude_from_sim no) (at {f(x)} {f(y)} 0)\n'
+                      f'\t\t(effects (font (size 1.27 1.27)) {j})\n\t\t(uuid "{U()}")\n\t)')
+    s = s[:note.start()] + "\n" + "\n".join(blocks) + s[note.end():]
     labels = []
     for (ref, unit), (x, y) in sorted(placed.items()):
         for k in range(52):
@@ -156,7 +184,8 @@ def board(j2a_uuid):
     fx, fy = map(float, re.search(r'\(footprint "CubeSat_PC104:CSK_PC104_Slot0"\n\t\t\(layer "F.Cu"\)\n\t\t\(uuid "[^"]+"\)\n\t\t\(at ([-\d.]+) ([-\d.]+)\)', b).groups())
     b = b.replace(f'(sheetfile "{TPL_NAME}.kicad_sch")', f'(sheetfile "{NAME}.kicad_sch")')
     b = b.replace('\t\t(0 "F.Cu" signal)\n', '\t\t(0 "F.Cu" signal)\n\t\t(4 "In1.Cu" signal)\n\t\t(6 "In2.Cu" signal)\n', 1)
-    assert "(stackup" not in b
+    assert "(stackup" not in b and "(title_block" not in b
+    b = b.replace('\t(paper "A4")\n', '\t(paper "A4")\n\t' + TITLE_BLOCK + '\n', 1)
     b = b.replace("\t(setup\n", "\t(setup\n" + STACKUP, 1)
     b, n = re.subn(r'\(net "unconnected-\(J1[AB]-[^)]*-Pad(\d+)\)"\)', lambda m: f'(net "{board_net(int(m[1]))}")', b)
     assert n == 104, n
@@ -198,6 +227,7 @@ def project(tpl_root, new_root):
     d = json.load(open(os.path.join(TPL, TPL_NAME + ".kicad_pro")))
     d["meta"]["filename"] = NAME + ".kicad_pro"
     d["sheets"] = [[new_root, "Root"]]
+    d["schematic"]["top_level_sheets"] = [{"filename": NAME + ".kicad_sch", "name": NAME, "uuid": new_root}]
     return json.dumps(d, indent=2) + "\n"
 
 
