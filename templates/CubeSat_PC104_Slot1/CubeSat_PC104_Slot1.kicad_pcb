@@ -86,7 +86,7 @@
 	(footprint "CubeSat_PC104:CSK_PC104_Slot1"
 		(layer "F.Cu")
 		(uuid "6eebf758-8473-4c71-9059-ffabf99deedd")
-		(at 100 100)
+		(at 116.84 68.58)
 		(descr "CubeSat Kit bus board, extended Slot 1 pattern per Pumpkin 810-00253 rev B2: outline, H1/H2 2x26 headers (0.1 in grid, 0.025 in square pins), 4x 3.18 mm mounting holes. Origin at H1 pin 1.")
 		(tags "CubeSat PC104 CSK Pumpkin H1 H2")
 		(property "Reference" "J1"
