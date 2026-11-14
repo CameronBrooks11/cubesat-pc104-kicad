@@ -17,6 +17,9 @@ change that moves a pad, hole or outline is a major version.
   the longer names fit; its pins move 2.54 mm outward. The templates and the
   breakout carry the new symbol. In an existing project, **Update Symbols from
   Library** moves the pins, so wires to them need reattaching.
+- The library's folder is `library/`, formerly `KiCad/`. A library table that
+  points into a clone of this repository needs the new path; the release zips
+  are unchanged.
 
 ## [1.0.0]
 

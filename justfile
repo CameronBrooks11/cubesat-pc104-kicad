@@ -13,15 +13,15 @@ check:
     tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
     fail() { echo "FAIL: $1"; [ -n "${2:-}" ] && cat "$2"; exit 1; }
     for t in {{projects}}; do
-      cmp -s KiCad/CubeSat_PC104.kicad_sym "$t/CubeSat_PC104.kicad_sym" && diff -r KiCad/CubeSat_PC104.pretty "$t/CubeSat_PC104.pretty" >/dev/null \
-        || fail "$t: library copy differs from KiCad/ (run just sync-template)"
-      echo "$t: library matches KiCad/"
+      cmp -s library/CubeSat_PC104.kicad_sym "$t/CubeSat_PC104.kicad_sym" && diff -r library/CubeSat_PC104.pretty "$t/CubeSat_PC104.pretty" >/dev/null \
+        || fail "$t: library copy differs from library/ (run just sync-template)"
+      echo "$t: library matches library/"
     done
     python3 tools/gensym.py "$tmp/CubeSat_PC104.kicad_sym" >/dev/null && kicad-cli sym upgrade --force "$tmp/CubeSat_PC104.kicad_sym" >/dev/null || fail "tools/gensym.py did not run"
-    cmp -s "$tmp/CubeSat_PC104.kicad_sym" KiCad/CubeSat_PC104.kicad_sym || fail "KiCad/CubeSat_PC104.kicad_sym is not what tools/gensym.py generates"
-    echo "KiCad/CubeSat_PC104.kicad_sym matches tools/gensym.py"
-    cp -r KiCad/CubeSat_PC104.pretty "$tmp/lib.pretty" && python3 tools/genbus.py "$tmp/lib.pretty" >/dev/null && kicad-cli fp upgrade --force "$tmp/lib.pretty" >/dev/null || fail "tools/genbus.py did not run"
-    diff <(grep -v '(uuid ' KiCad/CubeSat_PC104.pretty/CSK_PC104_Bus.kicad_mod) <(grep -v '(uuid ' "$tmp/lib.pretty/CSK_PC104_Bus.kicad_mod") || fail "CSK_PC104_Bus.kicad_mod is not what tools/genbus.py generates"
+    cmp -s "$tmp/CubeSat_PC104.kicad_sym" library/CubeSat_PC104.kicad_sym || fail "library/CubeSat_PC104.kicad_sym is not what tools/gensym.py generates"
+    echo "library/CubeSat_PC104.kicad_sym matches tools/gensym.py"
+    cp -r library/CubeSat_PC104.pretty "$tmp/lib.pretty" && python3 tools/genbus.py "$tmp/lib.pretty" >/dev/null && kicad-cli fp upgrade --force "$tmp/lib.pretty" >/dev/null || fail "tools/genbus.py did not run"
+    diff <(grep -v '(uuid ' library/CubeSat_PC104.pretty/CSK_PC104_Bus.kicad_mod) <(grep -v '(uuid ' "$tmp/lib.pretty/CSK_PC104_Bus.kicad_mod") || fail "CSK_PC104_Bus.kicad_mod is not what tools/genbus.py generates"
     echo "CSK_PC104_Bus matches tools/genbus.py"
     for b in {{templates}} {{breakout_pcb}}; do
       [ -d "$b" ] && b="$b/$(basename "$b").kicad_pcb"
@@ -40,7 +40,7 @@ check:
     kicad-cli sch erc --severity-all --exit-code-violations -o "$tmp/erc.rpt" "$sch" >/dev/null || fail "$sch: ERC" "$tmp/erc.rpt"
     echo "$sch: ERC clean"
 
-# Regenerate the footprints from the specification's DXFs and compare them with KiCad/
+# Regenerate the footprints from the specification's DXFs and compare them with library/
 footprints spec="reference/CSK_PCB_Spec_B2_20181108":
     #!/usr/bin/env bash
     set -uo pipefail
@@ -53,7 +53,7 @@ footprints spec="reference/CSK_PCB_Spec_B2_20181108":
     rc=0
     for s in 0 1; do
       f="CSK_PC104_Slot$s.kicad_mod"
-      if diff <(grep -v '(uuid ' "KiCad/CubeSat_PC104.pretty/$f") <(grep -v '(uuid ' "$out/$f"); then echo "$f matches the specification's DXF"; else echo "FAIL: $f differs from the DXF"; rc=1; fi
+      if diff <(grep -v '(uuid ' "library/CubeSat_PC104.pretty/$f") <(grep -v '(uuid ' "$out/$f"); then echo "$f matches the specification's DXF"; else echo "FAIL: $f differs from the DXF"; rc=1; fi
     done
     exit $rc
 
@@ -70,7 +70,7 @@ dist version="dev":
     stage=$(mktemp -d); trap 'rm -rf "$stage"' EXIT
     pack() { find "$stage/$1" -name '*.kicad_prl' -delete; (cd "$stage" && zip -qr "$OLDPWD/dist/$1.zip" "$1") && rm -rf "${stage:?}/$1"; echo "dist/$1.zip"; }
     d="$stage/CubeSat_PC104-{{version}}"; mkdir -p "$d"
-    cp -r KiCad/CubeSat_PC104.kicad_sym KiCad/CubeSat_PC104.pretty LICENSE "$d/"
+    cp -r library/CubeSat_PC104.kicad_sym library/CubeSat_PC104.pretty LICENSE "$d/"
     pack "CubeSat_PC104-{{version}}"
     d="$stage/cubesat-pc104-templates-{{version}}"; mkdir -p "$d"
     cp -r templates/. LICENSE "$d/"
@@ -88,6 +88,6 @@ breakout:
     kicad-cli sch upgrade --force breakout/CSK_Bus_Breakout.kicad_sch
     kicad-cli pcb drc --severity-all --schematic-parity --refill-zones --save-board --exit-code-violations -o /dev/null {{breakout_pcb}}
 
-# Copy the library into every template and the breakout after changing it in KiCad/
+# Copy the library into every template and the breakout after changing it in library/
 sync-template:
-    @for t in {{projects}}; do cp KiCad/CubeSat_PC104.kicad_sym "$t/" && rm -f "$t"/CubeSat_PC104.pretty/*.kicad_mod && cp KiCad/CubeSat_PC104.pretty/*.kicad_mod "$t/CubeSat_PC104.pretty/" && echo "synced $t"; done
+    @for t in {{projects}}; do cp library/CubeSat_PC104.kicad_sym "$t/" && rm -f "$t"/CubeSat_PC104.pretty/*.kicad_mod && cp library/CubeSat_PC104.pretty/*.kicad_mod "$t/CubeSat_PC104.pretty/" && echo "synced $t"; done

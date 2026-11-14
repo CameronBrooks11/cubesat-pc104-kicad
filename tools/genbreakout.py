@@ -190,7 +190,7 @@ def board(j2a_uuid):
     b, n = re.subn(r'\(net "unconnected-\(J1[AB]-[^)]*-Pad(\d+)\)"\)', lambda m: f'(net "{board_net(int(m[1]))}")', b)
     assert n == 104, n
 
-    lib = open(os.path.join(ROOT, "KiCad", "CubeSat_PC104.pretty", "CSK_PC104_Bus.kicad_mod")).read()
+    lib = open(os.path.join(ROOT, "library", "CubeSat_PC104.pretty", "CSK_PC104_Bus.kicad_mod")).read()
     items = [flipped_footprint(lib, (fx, fy + DROP), "J2", "CSK_Bus", j2a_uuid)]
 
     seg = lambda a, c, layer, nn: (f'\t(segment (start {f(a[0])} {f(a[1])}) (end {f(c[0])} {f(c[1])}) '

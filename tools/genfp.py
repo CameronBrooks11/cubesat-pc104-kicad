@@ -2,7 +2,7 @@
 
 usage: genfp.py SLOT.DXF OUT.kicad_mod [CSK_PC104_Slot0 | CSK_PC104_Slot1]
 The DXFs ship with the specification and are not in this repository;
-`just footprints` runs this for both slots and compares with KiCad/.
+`just footprints` runs this for both slots and compares with library/.
 
 - Edge.Cuts: the DXF outline. One mounting-hole pad ring is drawn as an arc
   clipped by the edge; it is dropped. Slot 0's outline is open at the

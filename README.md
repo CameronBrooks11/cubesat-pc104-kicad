@@ -7,6 +7,24 @@ The library is generated from, and checked against, the CubeSat Kit
 specification. Two project templates and a worked 4-layer example board are
 built from it.
 
+## Layout
+
+| Folder | What it holds |
+| --- | --- |
+| [`library/`](library/) | The `CubeSat_PC104` symbol and footprint library. This is the source; edit it here. |
+| [`templates/`](templates/) | Two project templates, one per board pattern. |
+| [`breakout/`](breakout/) | A finished example board, the bus breakout. |
+| [`tools/`](tools/) | The generators that write the library and the breakout, and the pin tables they read. |
+| [`img/`](img/) | Pictures for this README. |
+
+Each template and `breakout/` carries its own copy of the library, because
+KiCad copies a template folder as it is and the breakout ships as its own zip:
+a project that pointed back at `library/` would lose its parts once copied.
+`just sync-template` writes the copies and `just check` fails if one differs.
+
+The library is named for the form factor (`CubeSat_PC104`); its parts are named
+for the CubeSat Kit specification they follow (`CSK_`).
+
 ## Releases
 
 Each [release](https://github.com/CameronBrooks11/cubesat-pc104-kicad/releases)
@@ -74,7 +92,7 @@ them; choose the parts and the side to suit the stack.
 
 ## Library
 
-`KiCad/CubeSat_PC104.kicad_sym` and `KiCad/CubeSat_PC104.pretty/`. Add them to
+`library/CubeSat_PC104.kicad_sym` and `library/CubeSat_PC104.pretty/`. Add them to
 a project as the symbol and footprint libraries `CubeSat_PC104`.
 
 | Part | What it is |
@@ -160,23 +178,23 @@ With [just](https://just.systems/), Python 3 and KiCad 10's `kicad-cli`:
 
 - `just check` is the gate. CI runs it in the official `kicad/kicad:10.0.6`
   image on every pull request and push to `main`. It confirms:
-  - the library copy in each template and in `breakout/` matches `KiCad/`;
-  - `KiCad/CubeSat_PC104.kicad_sym` is exactly what `tools/gensym.py`
+  - the library copy in each template and in `breakout/` matches `library/`;
+  - `library/CubeSat_PC104.kicad_sym` is exactly what `tools/gensym.py`
     generates, and `CSK_PC104_Bus` what `tools/genbus.py` generates;
   - DRC with schematic parity is clean on both templates and the breakout;
   - ERC on each template finds nothing but the unconnected bus pins, and on
     the breakout nothing at all.
 - `just footprints` regenerates both footprints from the specification's DXFs
-  with `tools/genfp.py` and compares them with `KiCad/`, ignoring UUIDs. The
+  with `tools/genfp.py` and compares them with `library/`, ignoring UUIDs. The
   DXFs ship with Pumpkin's specification and are not in this repository; put
   `CSK_PCB_Slot0_B2_20180823.DXF` and `CSK_PCB_Slot1_B2_20180823.DXF` in a
   folder and pass it as `just footprints spec=<folder>`. CI cannot run this.
 - To change a footprint, edit `tools/genfp.py`, regenerate with
-  `python3 tools/genfp.py <dxf> KiCad/CubeSat_PC104.pretty/<name>.kicad_mod <name>`
-  and `kicad-cli fp upgrade --force KiCad/CubeSat_PC104.pretty`. To change a
+  `python3 tools/genfp.py <dxf> library/CubeSat_PC104.pretty/<name>.kicad_mod <name>`
+  and `kicad-cli fp upgrade --force library/CubeSat_PC104.pretty`. To change a
   symbol, edit `tools/gensym.py` or `tools/suchai_pins.csv`, then run
-  `python3 tools/gensym.py KiCad/CubeSat_PC104.kicad_sym` and
-  `kicad-cli sym upgrade --force KiCad/CubeSat_PC104.kicad_sym`. Follow either
+  `python3 tools/gensym.py library/CubeSat_PC104.kicad_sym` and
+  `kicad-cli sym upgrade --force library/CubeSat_PC104.kicad_sym`. Follow either
   with `just sync-template`, then `just breakout`.
 - `just sync-template` copies the library into every template and `breakout/`.
 - `just breakout` regenerates the breakout board and fills its ground plane.

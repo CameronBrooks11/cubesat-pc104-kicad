@@ -1,7 +1,7 @@
 """Generate CSK_PC104_Bus: the H1/H2 header pads of CSK_PC104_Slot0, alone.
 
-usage: python3 tools/genbus.py KiCad/CubeSat_PC104.pretty
-then:  kicad-cli fp upgrade --force KiCad/CubeSat_PC104.pretty
+usage: python3 tools/genbus.py library/CubeSat_PC104.pretty
+then:  kicad-cli fp upgrade --force library/CubeSat_PC104.pretty
 
 Takes pads 1-104, the two F.Fab header outlines and the H1/H2 silkscreen
 labels from CSK_PC104_Slot0.kicad_mod, so the two footprints cannot drift
